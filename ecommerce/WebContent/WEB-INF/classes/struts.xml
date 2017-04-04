@@ -7,10 +7,10 @@
 	<constant name="struts.devMode" value="true" />
 
 	<package name="core" extends="struts-default">
-		<action name="" class=""
-			method="">
-			<result name="" type="redirect"></result>
-			<result name="" type="redirect"></result>
+		<action name="registerUser" class="com.ecommerce.actions.UserAction"
+			method="registerUser">
+			<result name="success" type="redirect">/index.jsp</result>
+			<result name="fail" type="redirect"></result>
 		</action>
 	</package>
 

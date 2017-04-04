@@ -1,5 +1,7 @@
 package com.ecommerce.bo;
 
-public interface UserBO {
+import com.ecommerce.actions.UserAction;
 
+public interface UserBO {
+	public int registeruser(UserAction user);
 }

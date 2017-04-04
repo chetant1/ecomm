@@ -104,10 +104,11 @@
 				<div class="col-sm-4">
 					<div class="signup-form"><!--sign up form-->
 						<h2>New User Signup!</h2>
-						<form action="#">
-							<input type="text" placeholder="Name"/>
-							<input type="email" placeholder="Email Address"/>
-							<input type="password" placeholder="Password"/>
+						<form action="registerUser" method="post">
+							<input type="text" placeholder="First Name" name="userAction.firstName"/>
+							<input type="email" placeholder="Email Address" name="userAction.emailId"/>
+							<input type="password" placeholder="Password" name="userAction.password"/>
+							<input type="hidden" name="userAction.userRole" value="user">
 							<button type="submit" class="btn btn-default">Signup</button>
 						</form>
 					</div><!--/sign up form-->

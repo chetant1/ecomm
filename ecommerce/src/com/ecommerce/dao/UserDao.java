@@ -1,5 +1,7 @@
 package com.ecommerce.dao;
 
-public interface UserDao {
+import com.ecommerce.actions.UserAction;
 
+public interface UserDao {
+	public int registeruser(UserAction user);
 }
