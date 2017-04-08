@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -44,6 +45,7 @@
 								<li><a href="checkout.jsp"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 								<li><a href="cart.jsp"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 								<li><a href="login.jsp"><i class="fa fa-lock"></i> Login</a></li>
+								<li><i class="fa fa-user"></i><s:property value="#session.fName"/></li>
 							</ul>
 						</div>
 					</div>

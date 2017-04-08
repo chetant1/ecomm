@@ -86,27 +86,16 @@
 			<div class="row">
 				<div class="col-sm-4 col-sm-offset-1">
 					<div class="login-form"><!--login form-->
-						<h2>Login to your account</h2>
-						<form action="logincheck" method="post">
-							<input type="text" placeholder="First Name" name="userAction.firstName"/>
-							<input type="password" placeholder="Password" name="userAction.password"/>
-							<button type="submit" class="btn btn-default">Login</button>
-						</form>
+						<a href="manageUser" style="font-size:20px">Click to Manage Users</a>
 					</div><!--/login form-->
 				</div>
-				<div class="col-sm-1">
-					<h2 class="or">OR</h2>
-				</div>
+				<!-- <div class="col-sm-1">
+					<h2 class="or">AND</h2>
+				</div> -->
 				<div class="col-sm-4">
 					<div class="signup-form"><!--sign up form-->
-						<h2>New User Signup!</h2>
-						<form action="registerUser" method="post">
-							<input type="text" placeholder="First Name" name="userAction.firstName"/>
-							<input type="email" placeholder="Email Address" name="userAction.emailId"/>
-							<input type="password" placeholder="Password" name="userAction.password"/>
-							<input type="hidden" name="userAction.userRole" value="user">
-							<button type="submit" class="btn btn-default">Signup</button>
-						</form>
+						
+						<a href="manageProduct" style="font-size:20px">Click to Manage Products</a>
 					</div><!--/sign up form-->
 				</div>
 			</div>

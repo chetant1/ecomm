@@ -7,11 +7,93 @@
 	<constant name="struts.devMode" value="true" />
 
 	<package name="core" extends="struts-default">
+	<interceptors>
+                <interceptor class="com.ecommerce.interceptors.LoginInterceptor" name="loginInterceptor">
+                </interceptor>
+                <interceptor-stack name="checkLogin">
+                        <interceptor-ref name="loginInterceptor" />
+                        <interceptor-ref name="defaultStack" />
+                </interceptor-stack>
+        </interceptors>
+    	<global-results>
+		    <result name="error">/error.jsp</result>
+		    <result name="login" type="redirect">/login.jsp</result>
+		</global-results>
 		<action name="registerUser" class="com.ecommerce.actions.UserAction"
 			method="registerUser">
 			<result name="success" type="redirect">/index.jsp</result>
-			<result name="fail" type="redirect"></result>
+			<result name="fail" type="redirect">/?msg=error</result>
 		</action>
+		<action name="logincheck" class="com.ecommerce.actions.UserAction"
+			method="checkLogin">
+			<interceptor-ref name="checkLogin"/>
+			<result name="success" type="redirect">/index.jsp</result>
+			<result name="input" type="redirect">/?msg=error</result>
+		</action>
+		
+		<action name="manageProduct" class="com.ecommerce.actions.ProductActions"
+			method="manageProduct">
+			<interceptor-ref name="checkLogin"/>
+			<result name="success">/productList.jsp</result>
+			<result name="input">/?msg=error</result>
+		</action>
+		<action name="addProduct" class="com.ecommerce.actions.ProductActions"
+			method="addProduct">
+			<interceptor-ref name="checkLogin"/>
+			<result name="success">/productList.jsp</result>
+			<result name="input">/?msg=error</result>
+		</action>
+		<action name="deleteProduct" class="com.ecommerce.actions.ProductActions"
+			method="deleteProduct">
+			<interceptor-ref name="checkLogin"/>
+			<result name="success">/productList.jsp</result>
+			<result name="input">/?msg=error</result>
+		</action>
+		<action name="editProduct" class="com.ecommerce.actions.ProductActions"
+			method="editProduct">
+			<interceptor-ref name="checkLogin"/>
+			<result name="success">/productList.jsp</result>
+			<result name="input">/?msg=error</result>
+		</action>
+		<action name="updateProduct" class="com.ecommerce.actions.ProductActions"
+			method="updateProduct">
+			<interceptor-ref name="checkLogin"/>
+			<result name="success">/productList.jsp</result>
+			<result name="input">/?msg=error</result>
+		</action>
+		
+		<!--user actions  -->
+		<action name="manageUser" class="com.ecommerce.actions.UserAction"
+			method="manageUser">
+			<interceptor-ref name="checkLogin"/>
+			<result name="success">/userList.jsp</result>
+			<result name="input">/?msg=error</result>
+		</action>
+		<action name="addUser" class="com.ecommerce.actions.UserAction"
+			method="addUser">
+			<interceptor-ref name="checkLogin"/>
+			<result name="success">/userList.jsp</result>
+			<result name="input">/?msg=error</result>
+		</action>
+		<action name="deleteUser" class="com.ecommerce.actions.UserAction"
+			method="deleteUser">
+			<interceptor-ref name="checkLogin"/>
+			<result name="success">/userList.jsp</result>
+			<result name="input">/?msg=error</result>
+		</action>
+		<action name="editUser" class="com.ecommerce.actions.UserAction"
+			method="editUser">
+			<interceptor-ref name="checkLogin"/>
+			<result name="success">/userList.jsp</result>
+			<result name="input">/?msg=error</result>
+		</action>
+		<action name="updateUser" class="com.ecommerce.actions.UserAction"
+			method="updateUser">
+			<interceptor-ref name="checkLogin"/>
+			<result name="success">/userList.jsp</result>
+			<result name="input">/?msg=error</result>
+		</action>
+		
 	</package>
 
 </struts>

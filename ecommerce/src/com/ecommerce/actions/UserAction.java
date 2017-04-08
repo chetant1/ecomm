@@ -1,10 +1,25 @@
 package com.ecommerce.actions;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.dispatcher.SessionMap;
+import org.apache.struts2.interceptor.SessionAware;
+
 import com.ecommerce.bo.UserBO;
 import com.ecommerce.boimpl.UserBoImpl;
+import com.ecommerce.vo.UserVo;
+import com.opensymphony.xwork2.ActionSupport;
 
-public class UserAction {
+public class UserAction extends ActionSupport implements SessionAware {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int userId;
 	private String username;
 	private String password;
@@ -15,6 +30,10 @@ public class UserAction {
 	private String userRole;
 	private String isActive;
 	private UserAction userAction;
+	private SessionMap<String, Object> sessionMap = null;
+	private List<UserVo> userList = null;
+	private UserVo userVo = null;
+	private HttpServletRequest request = ServletActionContext.getRequest();
 
 	/**
 	 * @return the userId
@@ -166,6 +185,11 @@ public class UserAction {
 		this.userAction = userAction;
 	}
 
+	@Override
+	public void setSession(Map<String, Object> map) {
+		sessionMap = (SessionMap<String, Object>) map;
+	}
+
 	public String registerUser() {
 
 		UserBO userBO = new UserBoImpl();
@@ -176,4 +200,103 @@ public class UserAction {
 			return "fail";
 		}
 	}
+
+	public String checkLogin() {
+		UserBO userBO = new UserBoImpl();
+		UserVo loginUser = userBO.authenticate(userAction);
+		String result = INPUT;
+		if (null != loginUser) {
+			System.out.println("Login Success");
+			sessionMap.put("login", "true");
+			sessionMap.put("userid", loginUser.getUserId());
+			sessionMap.put("fName", loginUser.getFirstName());
+			result = SUCCESS;
+
+		}
+		return result;
+
+	}
+
+	public String logout() {
+		String result = INPUT;
+		if (null != sessionMap) {
+			sessionMap.remove("login");
+			sessionMap.invalidate();
+			result = SUCCESS;
+		}
+		return result;
+
+	}
+
+	public String manageProduct() {
+		UserBO userBO = new UserBoImpl();
+		userList = userBO.getAllUser();
+		setUserList(userList);
+		return "success";
+	}
+
+	public String addProduct() {
+		UserBO userBO = new UserBoImpl();
+		userBO.addUser(userAction);
+		userList = userBO.getAllUser();
+		setUserList(userList);
+		return "success";
+	}
+
+	public String deleteUser() {
+		UserBO userBO = new UserBoImpl();
+		userBO.deleteUser(Integer.parseInt(request.getParameter("userId")));
+		userList = userBO.getAllUser();
+		setUserList(userList);
+		return "success";
+	}
+
+	public String editUser() {
+		UserBO userBO = new UserBoImpl();
+		setUserVo(userBO.editUser(Integer.parseInt(request
+				.getParameter("userId"))));
+
+		userList = userBO.getAllUser();
+		setUserList(userList);
+		return "success";
+	}
+
+	public String updateUser() {
+		UserBO userBO = new UserBoImpl();
+		userBO.updateUser(userAction);
+		setUserList(userList);
+		setUserList(userList);
+		return "success";
+	}
+
+	/**
+	 * @return the userList
+	 */
+	public List<UserVo> getUserList() {
+		return userList;
+	}
+
+	/**
+	 * @param userList
+	 *            the userList to set
+	 */
+	public void setUserList(List<UserVo> userList) {
+		this.userList = userList;
+	}
+
+	/**
+	 * @return the userVo
+	 */
+	public UserVo getUserVo() {
+		return userVo;
+	}
+
+	/**
+	 * @param userVo
+	 *            the userVo to set
+	 */
+	public void setUserVo(UserVo userVo) {
+		this.userVo = userVo;
+	}
+
 }

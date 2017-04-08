@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -13,6 +15,8 @@
     <link href="css/animate.css" rel="stylesheet">
 	<link href="css/main.css" rel="stylesheet">
 	<link href="css/responsive.css" rel="stylesheet">
+	 <!-- Page-Level Plugin CSS - Tables -->
+    <link href="css/dataTables/dataTables.bootstrap.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
@@ -84,30 +88,81 @@
 	<section id="form" style="margin-top: 0"><!--form-->
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-4 col-sm-offset-1">
+				<div class="col-sm-3 col-sm-offset-1">
 					<div class="login-form"><!--login form-->
-						<h2>Login to your account</h2>
-						<form action="logincheck" method="post">
-							<input type="text" placeholder="First Name" name="userAction.firstName"/>
-							<input type="password" placeholder="Password" name="userAction.password"/>
-							<button type="submit" class="btn btn-default">Login</button>
-						</form>
+					<h2>Manage your product Details</h2>
+					<form action="addProduct" method="post">
+							<input type="text" placeholder="Product Name" name="productActions.productName"/>
+							<input type="text" placeholder="Product Brannd" name="productActions.productBrand"/>
+							<input type="text" placeholder="Product Quantity" name="productActions.productQuantity"/>
+							<input type="text" placeholder="Product Price" name="productActions.productPrice">
+							<button type="submit" class="btn btn-default">Add product</button>
+						</form>	
+						
+						<form action="updateProduct" method="post">
+							<input type="text" placeholder="Product Name" name="productActions.productName" value='<s:property value="productVo.productName"/>'/>
+							<input type="text" placeholder="Product Brannd" name="productActions.productBrand" value='<s:property value="productVo.productBrand"/>'/>
+							<input type="text" placeholder="Product Quantity" name="productActions.productQuantity" value='<s:property value="productVo.productQuantity"/>'/>
+							<input type="text" placeholder="Product Price" name="productActions.productPrice" value='<s:property value="productVo.productPrice"/>'/>
+							<input type="hidden" name="productActions.productId" value='<s:property value="productVo.productId"/>'/>
+							<button type="submit" class="btn btn-default">Update product</button>
+						</form>	
+					
 					</div><!--/login form-->
 				</div>
-				<div class="col-sm-1">
-					<h2 class="or">OR</h2>
-				</div>
-				<div class="col-sm-4">
-					<div class="signup-form"><!--sign up form-->
-						<h2>New User Signup!</h2>
-						<form action="registerUser" method="post">
-							<input type="text" placeholder="First Name" name="userAction.firstName"/>
-							<input type="email" placeholder="Email Address" name="userAction.emailId"/>
-							<input type="password" placeholder="Password" name="userAction.password"/>
-							<input type="hidden" name="userAction.userRole" value="user">
-							<button type="submit" class="btn btn-default">Signup</button>
-						</form>
-					</div><!--/sign up form-->
+				<!-- <div class="col-sm-1">
+					<h2 class="or">AND</h2>
+				</div> --> <br/>
+				<div class="col-sm-8">
+				<div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Product Details
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Brannd</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Active</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <s:iterator value="productList">
+                                        <tr class="gradeU">
+                                            <td><s:property value="productName"/></td>
+                                            <td><s:property value="productBrand"/></td>
+                                            <td><s:property value="productQuantity"/></td>
+                                            <td><s:property value="productPrice"/></td>
+                                            <td><s:property value="isActive"/></td>
+                                            <td class="center"><a href="deleteProduct?productId=<s:property value="productId"/>"><button type="button" class="btn btn-warning btn-circle"><i class="fa fa-times"></i>
+                            </button></a> &nbsp;&nbsp;<a href="editProduct?productId=<s:property value="productId"/>"><button type="button" class="btn btn-warning btn-circle"><i class="fa fa-edit fa-fw"></i>
+                            </button></a></td>
+                                        </tr>
+                                        </s:iterator>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+				
+				
+				
+				
+					
 				</div>
 			</div>
 		</div>
@@ -172,5 +227,15 @@
 	<script src="js/price-range.js"></script>
     <script src="js/jquery.prettyPhoto.js"></script>
     <script src="js/main.js"></script>
+     <!-- Page-Level Plugin Scripts - Tables -->
+    <script src="js/dataTables/jquery.dataTables.js"></script>
+    <script src="js/dataTables/dataTables.bootstrap.js"></script>
+     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+    $(document).ready(function() {
+        $('#dataTables-example').dataTable();
+    });
+    </script>
+    
 </body>
 </html>

@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.mail.MessagingException;
 
@@ -11,6 +13,7 @@ import com.ecommerce.actions.UserAction;
 import com.ecommerce.dao.UserDao;
 import com.ecommerce.database.DatabaseConnection;
 import com.ecommerce.utility.EmailUtil;
+import com.ecommerce.vo.UserVo;
 
 public class UserDaoImpl implements UserDao {
 	Connection connection = null;
@@ -32,16 +35,16 @@ public class UserDaoImpl implements UserDao {
 			pstmt.setString(5, user.getUserRole());
 			iuserCreated = pstmt.executeUpdate();
 			if (iuserCreated == 1) {
-				sendEmailToUser(user, user.getPassword());
+				// sendEmailToUser(user, user.getPassword());
 			}
 			System.out.println("Registration Successfull" + iuserCreated);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} // catch (MessagingException e) {
+			// // TODO Auto-generated catch block
+			// e.printStackTrace();
+			// }
 		return iuserCreated;
 	}
 
@@ -71,4 +74,142 @@ public class UserDaoImpl implements UserDao {
 		EmailUtil.sendMail(user.getEmailId(), emailText);
 	}
 
+	@Override
+	public UserVo authenticate(UserAction userAction) {
+		UserVo userVo = null;
+		connection = DatabaseConnection.getConnection();
+
+		String sqlQuery = "select * from ecomm.usermaster where firstname=? and password=?";
+		try {
+			pstmt = connection.prepareStatement(sqlQuery);
+			pstmt.setString(1, userAction.getFirstName());
+			pstmt.setString(2, userAction.getPassword());
+			resultSet = pstmt.executeQuery();
+			if (resultSet.next()) {
+				userVo = new UserVo();
+				userVo.setUserId(resultSet.getInt("USER_ID"));
+				userVo.setFirstName(resultSet.getString("FIRSTNAME"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return userVo;
+	}
+
+	@Override
+	public List<UserVo> getAllUser() {
+		List<UserVo> userList = new ArrayList<UserVo>();
+		UserVo userVo = null;
+		connection = DatabaseConnection.getConnection();
+		try {
+			pstmt = connection
+					.prepareStatement("SELECT * FROM ecomm.usermaster where IS_ACTIVE='Y'");
+			resultSet = pstmt.executeQuery();
+			while (resultSet.next()) {
+				userVo = new UserVo();
+				userVo.setUserId(resultSet.getInt("USER_ID"));
+				userVo.setFirstName(resultSet.getString("FIRSTNAME"));
+				userVo.setLastName(resultSet.getString("LASTNAME"));
+				userVo.setEmailId(resultSet.getString("EMAIL"));
+				userVo.setMobileNumber(resultSet.getString("MOBILENO"));
+				userVo.setIsActive(resultSet.getString("IS_ACTIVE"));
+				userList.add(userVo);
+			}
+
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+		return userList;
+	}
+
+	@Override
+	public int addUser(UserAction userAction) {
+		int userAdd = 0;
+		connection = DatabaseConnection.getConnection();
+		String sqlQuery = "INSERT INTO `ecomm`.`usermaster` (`PASSWORD`, `FIRSTNAME`, `LASTNAME`, `MOBILENO`, `EMAIL`, `USERROLE`, `IS_ACTIVE`)"
+				+ " VALUES (?,?,?,?,?,?,?)";
+		try {
+			pstmt = connection.prepareStatement(sqlQuery);
+			pstmt.setString(1, userAction.getPassword());
+			pstmt.setString(2, userAction.getFirstName());
+			pstmt.setString(3, userAction.getLastName());
+			pstmt.setString(4, userAction.getMobileNumber());
+			pstmt.setString(5, userAction.getEmailId());
+			pstmt.setString(6, userAction.getUserRole());
+			pstmt.setString(7, "Y");
+			userAdd = pstmt.executeUpdate();
+			System.out.println("userAdd Successfull" + userAdd);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return userAdd;
+	}
+
+	@Override
+	public int deleteUser(int userId) {
+		int deleteUser = 0;
+		try {
+			System.out.println("in deleteUser daoImpl");
+			connection = DatabaseConnection.getConnection();
+			pstmt = connection
+					.prepareStatement("UPDATE `ecomm`.`usermaster`  SET `IS_ACTIVE`='N' WHERE `USER_ID`="
+							+ userId);
+			deleteUser = pstmt.executeUpdate();
+			System.out.println("Out deleteUser daoImpl");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Failed to update status" + e);
+			e.printStackTrace();
+		}
+		return deleteUser;
+	}
+
+	@Override
+	public UserVo editUser(int userId) {
+		UserVo userVo = null;
+		connection = DatabaseConnection.getConnection();
+		try {
+			pstmt = connection
+					.prepareStatement("SELECT * FROM `ecomm`.`usermaster` where IS_ACTIVE='Y' and user_id="
+							+ userId);
+			resultSet = pstmt.executeQuery();
+			while (resultSet.next()) {
+				userVo = new UserVo();
+				userVo.setUserId(resultSet.getInt("USER_ID"));
+				userVo.setFirstName(resultSet.getString("FIRSTNAME"));
+				userVo.setLastName(resultSet.getString("LASTNAME"));
+				userVo.setEmailId(resultSet.getString("EMAIL"));
+				userVo.setMobileNumber(resultSet.getString("MOBILENO"));
+				userVo.setIsActive(resultSet.getString("IS_ACTIVE"));
+			}
+
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+		return userVo;
+	}
+
+	@Override
+	public int updateUser(UserAction userAction) {
+		// TODO Auto-generated method stub
+		int updateUser = 0;
+		try {
+			System.out.println("in updateUser daoImpl");
+			connection = DatabaseConnection.getConnection();
+			pstmt = connection
+					.prepareStatement("UPDATE `ecomm`.`usermaster` SET `FIRSTNAME`=?, `LASTNAME`=?, `MOBILENO`=?, `EMAIL`=? WHERE `USER_ID`="
+							+ userAction.getUserId());
+			pstmt.setString(1, userAction.getFirstName());
+			pstmt.setString(2, userAction.getLastName());
+			pstmt.setString(3, userAction.getMobileNumber());
+			pstmt.setString(4, userAction.getEmailId());
+			updateUser = pstmt.executeUpdate();
+			System.out.println("Out updateUser daoImpl");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Failed to update status" + e);
+			e.printStackTrace();
+		}
+		return updateUser;
+	}
 }
