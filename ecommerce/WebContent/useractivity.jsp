@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -13,6 +15,8 @@
     <link href="css/animate.css" rel="stylesheet">
 	<link href="css/main.css" rel="stylesheet">
 	<link href="css/responsive.css" rel="stylesheet">
+	 <!-- Page-Level Plugin CSS - Tables -->
+    <link href="css/dataTables/dataTables.bootstrap.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
@@ -31,17 +35,14 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="index.jsp"><img src="images/home/logo.png" alt="" /></a>
+							<a href="homePage?useraction=Home"><img src="images/home/logo.png" alt="" /></a>
 						</div>
 						
 					</div>
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<!-- <li><a href="checkout.jsp"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="cart.jsp"><i class="fa fa-shopping-cart"></i> Cart</a></li> 
-								<li><a href="login.jsp" class="active"><i class="fa fa-lock"></i> Login</a></li>-->
-								<li><a href="logout"><i class="fa fa-lock"></i> Logout</a></li>
+								<li><a href="?useraction=Logout"><i class="fa fa-lock"></i> Logout</a></li>
 							</ul>
 						</div>
 					</div>
@@ -53,27 +54,9 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-9">
-						<!-- <div class="navbar-header">
-							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-								<span class="sr-only">Toggle navigation</span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-							</button>
-						</div> -->
+						
 						<div class="mainmenu pull-left">
-							<!-- <ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="index.jsp">Home</a></li>
-								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.jsp">Products</a></li>
-										<li><a href="checkout.jsp">Checkout</a></li> 
-										<li><a href="cart.jsp">Cart</a></li> 
-										<li><a href="login.jsp" class="active">Login</a></li> 
-                                    </ul>
-                                </li> 
-								<li><a href="contact-us.jsp">Contact</a></li>
-							</ul> -->
+							
 						</div>
 					</div>
 					
@@ -85,22 +68,52 @@
 	<section id="form" style="margin-top: 0"><!--form-->
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-3">
-					<div class="login-form">
-						<a href="manageUser" style="font-size:20px">Click to Manage Users</a>
-					</div><!--/login form-->
-				</div>
-				<div class="col-sm-3">
-					<div class="signup-form">
-						
-						<a href="manageProduct" style="font-size:20px">Click to Manage Products</a>
-					</div>
-				</div>
-				<div class="col-sm-3">
-					<div class="signup-form">
-						
-						<a href="getUserActivity" style="font-size:20px">Click to View UserActivity</a>
-					</div>
+				<div class="col-sm-12">
+				<div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            User Activity Details
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>User Activity</th>
+                                            <th>Activity Date</th>
+                                            <th>Activity Start Time</th>
+                                            <th>Activity End Time</th>
+                                            <th>Time Spend</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <s:iterator value="activityVoList">
+                                        <tr class="gradeU">
+                                            <td><s:property value="userAction"/></td>
+                                            <td><s:property value="activityDate"/></td>
+                                            <td><s:property value="activityStartTime"/></td>
+                                            <td><s:property value="activityEndTime"/></td>
+                                            <td><s:property value="timeSpend"/></td>
+                                        </tr>
+                                        </s:iterator>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+				
+				
+				
+				
+					
 				</div>
 			</div>
 		</div>
@@ -165,5 +178,15 @@
 	<script src="js/price-range.js"></script>
     <script src="js/jquery.prettyPhoto.js"></script>
     <script src="js/main.js"></script>
+     <!-- Page-Level Plugin Scripts - Tables -->
+    <script src="js/dataTables/jquery.dataTables.js"></script>
+    <script src="js/dataTables/dataTables.bootstrap.js"></script>
+     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+    $(document).ready(function() {
+        $('#dataTables-example').dataTable();
+    });
+    </script>
+    
 </body>
 </html>

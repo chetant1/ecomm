@@ -12,6 +12,7 @@ import com.ecommerce.actions.UserProductActions;
 import com.ecommerce.dao.ProductDao;
 import com.ecommerce.database.DatabaseConnection;
 import com.ecommerce.vo.ProductVo;
+import com.ecommerce.vo.UserActivityVo;
 import com.ecommerce.vo.UserProductVo;
 
 public class ProductDaoImpl implements ProductDao {
@@ -217,10 +218,40 @@ public class ProductDaoImpl implements ProductDao {
 			productUpdate = pstmt.executeUpdate();
 			System.out.println("Out deleteCartProduct daoImpl");
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println("Failed to update status" + e);
 			e.printStackTrace();
 		}
 		return productUpdate;
+	}
+
+	@Override
+	public List<UserActivityVo> getUserActivity() {
+		List<UserActivityVo> userActivitiList = new ArrayList<UserActivityVo>();
+		UserActivityVo userActiviti = null;
+		connection = DatabaseConnection.getConnection();
+		try {
+			pstmt = connection
+					.prepareStatement("SELECT * FROM `ecomm`.`user_activity`");
+			resultSet = pstmt.executeQuery();
+			while (resultSet.next()) {
+				userActiviti = new UserActivityVo();
+				userActiviti.setUserTrackId(resultSet.getInt("USER_TRACK_ID"));
+				userActiviti.setUserId(resultSet.getInt("USER_ID"));
+				userActiviti.setUserAction(resultSet.getString("USER_ACTION"));
+				userActiviti.setActivityDate(resultSet
+						.getString("ACTIVITY_DATE"));
+				userActiviti.setActivityStartTime(resultSet
+						.getString("START_TIME"));
+				userActiviti
+						.setActivityEndTime(resultSet.getString("END_TIME"));
+				userActiviti.setTimeSpend(resultSet.getString("TIME_SPEND"));
+				userActivitiList.add(userActiviti);
+			}
+
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+		return userActivitiList;
+
 	}
 }

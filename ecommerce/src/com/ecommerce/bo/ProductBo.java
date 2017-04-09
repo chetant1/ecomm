@@ -5,6 +5,7 @@ import java.util.List;
 import com.ecommerce.actions.ProductActions;
 import com.ecommerce.actions.UserProductActions;
 import com.ecommerce.vo.ProductVo;
+import com.ecommerce.vo.UserActivityVo;
 import com.ecommerce.vo.UserProductVo;
 
 public interface ProductBo {
@@ -24,4 +25,6 @@ public interface ProductBo {
 	public List<UserProductVo> getAllUserCartProduct(int userId);
 
 	public int deleteCartProduct(int cartProductID);
+
+	public List<UserActivityVo> getUserActivity();
 }

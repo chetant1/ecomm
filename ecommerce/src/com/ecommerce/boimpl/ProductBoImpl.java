@@ -8,6 +8,7 @@ import com.ecommerce.bo.ProductBo;
 import com.ecommerce.dao.ProductDao;
 import com.ecommerce.daoimpl.ProductDaoImpl;
 import com.ecommerce.vo.ProductVo;
+import com.ecommerce.vo.UserActivityVo;
 import com.ecommerce.vo.UserProductVo;
 
 public class ProductBoImpl implements ProductBo {
@@ -58,6 +59,12 @@ public class ProductBoImpl implements ProductBo {
 	public int deleteCartProduct(int cartProductID) {
 		ProductDao dao = new ProductDaoImpl();
 		return dao.deleteCartProduct(cartProductID);
+	}
+
+	@Override
+	public List<UserActivityVo> getUserActivity() {
+		ProductDao dao = new ProductDaoImpl();
+		return dao.getUserActivity();
 	}
 
 }

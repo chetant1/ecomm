@@ -25,14 +25,20 @@ public class LoginInterceptor extends AbstractInterceptor {
 				.getSession();
 		String login = (String) session.get("login");
 		if (null != login && login.equals("true")) {
-			ActionContext context = invocation.getInvocationContext();
-			HttpServletRequest request = (HttpServletRequest) context
-					.get(StrutsStatics.HTTP_REQUEST);
-			String userId = "" + session.get("userid");
-			String userAction = request.getParameter("useraction").toString();
-			UserDaoImpl userDao = new UserDaoImpl();
-			userDao.trackUserActivity(Integer.parseInt(userId), userAction);
-			return invocation.invoke();
+			if ((session.get("userrole").toString()).equals("user")) {
+				ActionContext context = invocation.getInvocationContext();
+				HttpServletRequest request = (HttpServletRequest) context
+						.get(StrutsStatics.HTTP_REQUEST);
+				String userId = "" + session.get("userid");
+				String userAction = request.getParameter("useraction")
+						.toString();
+				UserDaoImpl userDao = new UserDaoImpl();
+				userDao.trackUserActivity(Integer.parseInt(userId), userAction);
+				return invocation.invoke();
+			} else {
+				return invocation.invoke();
+			}
+
 		} else {
 			return Action.LOGIN;
 		}

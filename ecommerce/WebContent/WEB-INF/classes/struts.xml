@@ -137,7 +137,6 @@
 			<result name="success">/checkout.jsp</result>
 			<result name="input">/?msg=error</result>
 		</action>
-		
 		<action name="homePage" class="com.ecommerce.actions.UserAction"
 			method="getHomePage">
 			<interceptor-ref name="checkLogin"/>
@@ -145,8 +144,12 @@
 			<result name="adminpage" >/adminhome.jsp</result>
 			<result name="input" type="redirect">/?msg=error</result>
 		</action>		
-		
-		
+		<action name="getUserActivity" class="com.ecommerce.actions.UserActivitiAction"
+			method="getUserActivity">
+			<interceptor-ref name="checkLogin"/>
+			<result name="success">/useractivity.jsp</result>
+			<result name="input">/?msg=error</result>
+		</action>
 	</package>
 
 </struts>
