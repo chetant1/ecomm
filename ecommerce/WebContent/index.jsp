@@ -45,7 +45,7 @@
 								<li><a href="checkout.jsp"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 								<li><a href="cart.jsp"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 								<li><a href="logout"><i class="fa fa-lock"></i> Logout</a></li>
-								<li><i class="fa fa-user"></i><s:property value="#session.fName"/></li>
+								<li><a href="userDetails"><i class="fa fa-user"></i><s:property value="#session.fName"/></a></li>
 							</ul>
 						</div>
 					</div>
@@ -70,10 +70,7 @@
 								<li><a href="index.jsp" class="active">Home</a></li>
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.jsp">Products</a></li>
-										<li><a href="checkout.jsp">Checkout</a></li> 
-										<li><a href="cart.jsp">Cart</a></li> 
-										<li><a href="login.jsp">Login</a></li> 
+                                        <li><a href="getUserProductList">Products</a></li>
                                     </ul>
                                 </li> 
 								<li><a href="contact-us.jsp">Contact</a></li>
@@ -151,7 +148,7 @@
 		</div>
 	</section><!--/slider-->
 	
-	<section>
+	<%-- <section>
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-3">
@@ -597,7 +594,7 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> --%>
 	
 	<footer id="footer"><!--Footer-->
 		<div class="footer-top">

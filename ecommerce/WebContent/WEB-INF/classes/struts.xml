@@ -100,6 +100,12 @@
 			<result name="success">/userList.jsp</result>
 			<result name="input">/?msg=error</result>
 		</action>
+		<action name="getUserProductList" class="com.ecommerce.actions.UserAction"
+			method="getUserProductList">
+			<interceptor-ref name="checkLogin"/>
+			<result name="success">/userproductlist.jsp</result>
+			<result name="input">/?msg=error</result>
+		</action>
 		
 	</package>
 

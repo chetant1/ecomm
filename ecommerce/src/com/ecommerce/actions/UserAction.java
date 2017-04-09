@@ -9,8 +9,11 @@ import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.SessionAware;
 
+import com.ecommerce.bo.ProductBo;
 import com.ecommerce.bo.UserBO;
+import com.ecommerce.boimpl.ProductBoImpl;
 import com.ecommerce.boimpl.UserBoImpl;
+import com.ecommerce.vo.ProductVo;
 import com.ecommerce.vo.UserVo;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -34,12 +37,22 @@ public class UserAction extends ActionSupport implements SessionAware {
 	private List<UserVo> userList = null;
 	private UserVo userVo = null;
 	private HttpServletRequest request = ServletActionContext.getRequest();
+	private ProductActions productActions = new ProductActions();
+	private List<ProductVo> userProductList = null;
 
 	/**
 	 * @return the userId
 	 */
 	public int getUserId() {
 		return userId;
+	}
+
+	/**
+	 * @param userProductList
+	 *            the userProductList to set
+	 */
+	public void setUserProductList(List<ProductVo> userProductList) {
+		this.userProductList = userProductList;
 	}
 
 	/**
@@ -190,6 +203,51 @@ public class UserAction extends ActionSupport implements SessionAware {
 		sessionMap = (SessionMap<String, Object>) map;
 	}
 
+	/**
+	 * @return the userList
+	 */
+	public List<UserVo> getUserList() {
+		return userList;
+	}
+
+	/**
+	 * @param userList
+	 *            the userList to set
+	 */
+	public void setUserList(List<UserVo> userList) {
+		this.userList = userList;
+	}
+
+	/**
+	 * @return the userVo
+	 */
+	public UserVo getUserVo() {
+		return userVo;
+	}
+
+	/**
+	 * @param userVo
+	 *            the userVo to set
+	 */
+	public void setUserVo(UserVo userVo) {
+		this.userVo = userVo;
+	}
+
+	/**
+	 * @return the productActions
+	 */
+	public ProductActions getProductActions() {
+		return productActions;
+	}
+
+	/**
+	 * @param productActions
+	 *            the productActions to set
+	 */
+	public void setProductActions(ProductActions productActions) {
+		this.productActions = productActions;
+	}
+
 	public String registerUser() {
 
 		UserBO userBO = new UserBoImpl();
@@ -273,34 +331,10 @@ public class UserAction extends ActionSupport implements SessionAware {
 		return "success";
 	}
 
-	/**
-	 * @return the userList
-	 */
-	public List<UserVo> getUserList() {
-		return userList;
+	public String getUserProductList() {
+		ProductBo productBo = new ProductBoImpl();
+		userProductList = productBo.getAllProduct();
+		productActions.setProductList(userProductList);
+		return "success";
 	}
-
-	/**
-	 * @param userList
-	 *            the userList to set
-	 */
-	public void setUserList(List<UserVo> userList) {
-		this.userList = userList;
-	}
-
-	/**
-	 * @return the userVo
-	 */
-	public UserVo getUserVo() {
-		return userVo;
-	}
-
-	/**
-	 * @param userVo
-	 *            the userVo to set
-	 */
-	public void setUserVo(UserVo userVo) {
-		this.userVo = userVo;
-	}
-
 }
