@@ -90,24 +90,24 @@
 			<div class="row">
 				<div class="col-sm-3 col-sm-offset-1">
 					<div class="login-form"><!--login form-->
-					<h2>Manage your product Details</h2>
-					<form action="addProduct" method="post">
+					<h2>Manage user Details</h2>
+					<form action="addUser" method="post">
 							<input type="text" placeholder="First Name" name="userAction.firstName"/>
 							<input type="text" placeholder="Last Name" name="userAction.lastName"/>
 							<input type="text" placeholder="Email" name="userAction.emailId"/>
 							<input type="text" placeholder="Mobile No" name="userAction.mobileNumber">
 							<input type="password" placeholder="Password" name="userAction.password">
 							<input type="hidden" name="userAction.userRole" value="user">
-							<button type="submit" class="btn btn-default">Add product</button>
+							<button type="submit" class="btn btn-default">Add User</button>
 						</form>	
 						
-						<form action="updateProduct" method="post">
+						<form action="updateUser" method="post">
 							<input type="text" placeholder="First Name" name="userAction.firstName" value='<s:property value="userVo.firstName"/>'/>
 							<input type="text" placeholder="Last Name" name="userAction.lastName" value='<s:property value="userVo.lastName"/>'/>
 							<input type="text" placeholder="Email" name="userAction.emailId" value='<s:property value="userVo.emailId"/>'/>
 							<input type="text" placeholder="Mobile No" name="userAction.mobileNumber" value='<s:property value="userVo.mobileNumber"/>'/>
 							<input type="hidden" name="userAction.userId" value='<s:property value="userVo.userId"/>'/>
-							<button type="submit" class="btn btn-default">Update product</button>
+							<button type="submit" class="btn btn-default">Update User</button>
 						</form>	
 					
 					</div><!--/login form-->

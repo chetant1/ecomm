@@ -228,14 +228,14 @@ public class UserAction extends ActionSupport implements SessionAware {
 
 	}
 
-	public String manageProduct() {
+	public String manageUser() {
 		UserBO userBO = new UserBoImpl();
 		userList = userBO.getAllUser();
 		setUserList(userList);
 		return "success";
 	}
 
-	public String addProduct() {
+	public String addUser() {
 		UserBO userBO = new UserBoImpl();
 		userBO.addUser(userAction);
 		userList = userBO.getAllUser();
@@ -264,7 +264,7 @@ public class UserAction extends ActionSupport implements SessionAware {
 	public String updateUser() {
 		UserBO userBO = new UserBoImpl();
 		userBO.updateUser(userAction);
-		setUserList(userList);
+		userList = userBO.getAllUser();
 		setUserList(userList);
 		return "success";
 	}
