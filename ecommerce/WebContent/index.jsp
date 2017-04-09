@@ -27,8 +27,6 @@
 
 <body>
 	<header id="header"><!--header-->
-		
-		
 		<div class="header-middle"><!--header-middle-->
 			<div class="container">
 				<div class="row">
@@ -44,7 +42,7 @@
 							<ul class="nav navbar-nav">
 								<li><a href="getAllUserCartProducts?useraction=Cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 								<li><a href="logout?useraction=Logout"><i class="fa fa-lock"></i> Logout</a></li>
-								<li><a href="userDetails"><i class="fa fa-user"></i><s:property value="#session.fName"/></a></li>
+								<li><a href="userDetails?useraction=Profile Check"><i class="fa fa-user"></i><s:property value="#session.fName"/></a></li>
 							</ul>
 						</div>
 					</div>

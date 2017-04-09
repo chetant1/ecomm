@@ -42,7 +42,7 @@
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="?useraction=Logout"><i class="fa fa-lock"></i> Logout</a></li>
+								<li><a href="logout?useraction=Logout"><i class="fa fa-lock"></i> Logout</a></li>
 							</ul>
 						</div>
 					</div>

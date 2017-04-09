@@ -347,4 +347,11 @@ public class UserAction extends ActionSupport implements SessionAware {
 			result = "userpage";
 		return result;
 	}
+
+	public String getUserDetails() {
+		UserBO userBO = new UserBoImpl();
+		setUserVo(userBO.editUser(Integer.parseInt((sessionMap.get("userid"))
+				.toString())));
+		return "success";
+	}
 }

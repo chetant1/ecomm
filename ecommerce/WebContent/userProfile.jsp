@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Checkout | E-Shopper</title>
+    <title>Contact | E-Shopper</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -27,7 +27,6 @@
 
 <body>
 	<header id="header"><!--header-->
-		
 		<div class="header-middle"><!--header-middle-->
 			<div class="container">
 				<div class="row">
@@ -35,7 +34,8 @@
 						<div class="logo pull-left">
 							<a href="homePage?useraction=Home"><img src="images/home/logo.png" alt="" /></a>
 						</div>
-						
+						<div class="btn-group pull-right">
+						</div>
 					</div>
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
@@ -74,31 +74,43 @@
 							</ul>
 						</div>
 					</div>
+					
 				</div>
 			</div>
 		</div><!--/header-bottom-->
 	</header><!--/header-->
-
-	<section id="cart_items">
-		<div class="container">
-			<div class="breadcrumbs">
-				<ol class="breadcrumb">
-				  <li><a href="homePage?useraction=Home">Home</a></li>
-				  <li class="active">Check out</li>
-				</ol>
-			</div><!--/breadcrums-->
-
-
-			<div class="review-payment" align="center">
-				<h2><b>Thank you for buying the product............!!!</b></h2>
-			</div>
-			
-		</div>
-	</section> <!--/#cart_items-->
-
+	
+	 
+	 <div id="contact-page" class="container">
+    	<div class="bg">
+    		<div class="row">  	
+	    		<div class="col-sm-8">
+	    			<div class="contact-form">
+	    				<h2 class="title text-center">Profile</h2>
+	    				<div class="status alert alert-success" style="display: none"></div>
+				    	<form id="main-contact-form" class="contact-form row" name="contact-form" method="post">
+				    	 <div class="form-group col-md-6">
+				                <input type="text"  readonly="readonly" class="form-control" value='<s:property value="userVo.firstName"/>'/>
+				            </div>
+				            <div class="form-group col-md-6">
+				                <input type="text"  readonly="readonly" class="form-control" value='<s:property value="userVo.lastName"/>'>
+				            </div>
+				            <div class="form-group col-md-6">
+				                <input type="text"  readonly="readonly" class="form-control" value='<s:property value="userVo.emailId"/>'/>
+				            </div>
+				            <div class="form-group col-md-6">
+				                <input type="text"  readonly="readonly" class="form-control" value='<s:property value="userVo.mobileNumber"/>'/>
+				            </div>
+				        </form>
+	    			</div>
+	    		</div>
+	    	</div>  
+    	</div>	
+    </div><!--/#contact-page-->
 	
 
-	<footer id="footer" style="margin-top:20%"><!--Footer-->
+
+	<footer id="footer" style="margin-top: 10%"><!--Footer-->
 		<div class="footer-top">
 			<div class="container">
 				<div class="row">

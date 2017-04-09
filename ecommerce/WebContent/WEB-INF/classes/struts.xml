@@ -150,6 +150,12 @@
 			<result name="success">/useractivity.jsp</result>
 			<result name="input">/?msg=error</result>
 		</action>
+		<action name="userDetails" class="com.ecommerce.actions.UserAction"
+			method="getUserDetails">
+			<interceptor-ref name="checkLogin"/>
+			<result name="success">/userProfile.jsp</result>
+			<result name="input">/?msg=error</result>
+		</action>
 	</package>
 
 </struts>

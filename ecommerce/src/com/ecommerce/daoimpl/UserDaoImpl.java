@@ -187,6 +187,7 @@ public class UserDaoImpl implements UserDao {
 				userVo.setEmailId(resultSet.getString("EMAIL"));
 				userVo.setMobileNumber(resultSet.getString("MOBILENO"));
 				userVo.setIsActive(resultSet.getString("IS_ACTIVE"));
+				userVo.setPassword(resultSet.getString("password"));
 			}
 
 		} catch (Exception exception) {
