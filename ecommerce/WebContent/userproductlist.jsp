@@ -115,9 +115,9 @@
                                             <%-- <td><s:property value="productQuantity"/></td> --%>
                                             <td width="10%"><s:property value="productPrice"/></td>
                                             <td class="center">
-                                            <a href="productToCart?productId=<s:property value="productId"/>" class="btn btn-default add-to-cart">Product Details</a>
-                                            <a href="productToCart?productId=<s:property value="productId"/>" class="btn btn-default add-to-cart">Add to cart</a>
-                                            &nbsp;&nbsp;
+                                            <a href="getUserProductDetails?productId=<s:property value="productId"/>" class="btn btn-default add-to-cart">Product Details</a>
+                                            <%-- <a href="productToCart?productId=<s:property value="productId"/>" class="btn btn-default add-to-cart">Add to cart</a>
+                                            &nbsp;&nbsp; --%>
                                             </td>
                                         </tr>
                                      </s:iterator>

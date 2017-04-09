@@ -209,4 +209,11 @@ public class ProductActions extends ActionSupport {
 		return "success";
 	}
 
+	public String getUserProductDetails() {
+		ProductBo productBo = new ProductBoImpl();
+		setProductVo(productBo.editProduct(Integer.parseInt(request
+				.getParameter("productId"))));
+		return "success";
+	}
+
 }

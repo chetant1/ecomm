@@ -3,7 +3,9 @@ package com.ecommerce.bo;
 import java.util.List;
 
 import com.ecommerce.actions.ProductActions;
+import com.ecommerce.actions.UserProductActions;
 import com.ecommerce.vo.ProductVo;
+import com.ecommerce.vo.UserProductVo;
 
 public interface ProductBo {
 
@@ -16,4 +18,8 @@ public interface ProductBo {
 	public ProductVo editProduct(int parseInt);
 
 	public int updateProduct(ProductActions productActions);
+
+	public int addProductToCart(UserProductActions userProductActions);
+
+	public List<UserProductVo> getAllUserCartProduct(int userId);
 }

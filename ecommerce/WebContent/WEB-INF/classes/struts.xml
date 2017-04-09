@@ -107,6 +107,25 @@
 			<result name="input">/?msg=error</result>
 		</action>
 		
+		<action name="getUserProductDetails" class="com.ecommerce.actions.ProductActions"
+			method="getUserProductDetails">
+			<interceptor-ref name="checkLogin"/>
+			<result name="success">/product-details.jsp</result>
+			<result name="input">/?msg=error</result>
+		</action>
+		<action name="productToCart" class="com.ecommerce.actions.UserProductActions"
+			method="addProductToCart">
+			<interceptor-ref name="checkLogin"/>
+			<result name="success">/cart.jsp</result>
+			<result name="input">/?msg=error</result>
+		</action>
+		<action name="getAllUserCartProducts" class="com.ecommerce.actions.UserProductActions"
+			method="getAllUserCartProducts">
+			<interceptor-ref name="checkLogin"/>
+			<result name="success">/cart.jsp</result>
+			<result name="input">/?msg=error</result>
+		</action>
+		
 	</package>
 
 </struts>

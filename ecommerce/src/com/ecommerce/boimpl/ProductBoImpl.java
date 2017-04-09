@@ -3,10 +3,12 @@ package com.ecommerce.boimpl;
 import java.util.List;
 
 import com.ecommerce.actions.ProductActions;
+import com.ecommerce.actions.UserProductActions;
 import com.ecommerce.bo.ProductBo;
 import com.ecommerce.dao.ProductDao;
 import com.ecommerce.daoimpl.ProductDaoImpl;
 import com.ecommerce.vo.ProductVo;
+import com.ecommerce.vo.UserProductVo;
 
 public class ProductBoImpl implements ProductBo {
 
@@ -38,6 +40,18 @@ public class ProductBoImpl implements ProductBo {
 	public int updateProduct(ProductActions productData) {
 		ProductDao dao = new ProductDaoImpl();
 		return dao.updateProduct(productData);
+	}
+
+	@Override
+	public int addProductToCart(UserProductActions userProductData) {
+		ProductDao dao = new ProductDaoImpl();
+		return dao.addProductToCart(userProductData);
+	}
+
+	@Override
+	public List<UserProductVo> getAllUserCartProduct(int userId) {
+		ProductDao dao = new ProductDaoImpl();
+		return dao.getAllUserCartProduct(userId);
 	}
 
 }

@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ecommerce.actions.ProductActions;
+import com.ecommerce.actions.UserProductActions;
 import com.ecommerce.dao.ProductDao;
 import com.ecommerce.database.DatabaseConnection;
 import com.ecommerce.vo.ProductVo;
+import com.ecommerce.vo.UserProductVo;
 
 public class ProductDaoImpl implements ProductDao {
 	Connection connection = null;
@@ -138,5 +140,67 @@ public class ProductDaoImpl implements ProductDao {
 			e.printStackTrace();
 		}
 		return productUpdate;
+	}
+
+	@Override
+	public int addProductToCart(UserProductActions userProductActions) {
+		int productAdd = 0;
+		connection = DatabaseConnection.getConnection();
+		String sqlQuery = "INSERT INTO `ecomm`.`userproductdetails` (`USER_ID`, `PRODUCT_ID`,`USER_PRODUCT_QUANTITY`, `PRODUCT_PRICE`, `PURCHASE_STATUS`,`IS_ACTIVE`)"
+				+ " VALUES (?, ?, ?, ?, ?, ?)";
+		try {
+			pstmt = connection.prepareStatement(sqlQuery);
+			pstmt.setInt(1, userProductActions.getUserId());
+			pstmt.setInt(2, userProductActions.getProductId());
+			pstmt.setString(3, userProductActions.getUserProductQuantity());
+			pstmt.setString(4, userProductActions.getProductPrice());
+			pstmt.setString(5, userProductActions.getPurchaseStatus());
+			pstmt.setString(6, "Y");
+			productAdd = pstmt.executeUpdate();
+			System.out.println("User product Add to cart Successfull"
+					+ productAdd);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return productAdd;
+
+	}
+
+	@Override
+	public List<UserProductVo> getAllUserCartProduct(int userId) {
+
+		List<UserProductVo> productList = new ArrayList<UserProductVo>();
+		UserProductVo userProductVo = null;
+		connection = DatabaseConnection.getConnection();
+		try {
+			pstmt = connection
+					.prepareStatement("select u.USER_PRODUCT_ID,u.USER_ID,u.PRODUCT_ID,u.USER_PRODUCT_QUANTITY,u.PRODUCT_PRICE,"
+							+ "u.PURCHASE_STATUS,u.IS_ACTIVE,p.PRODUCT_NAME from"
+							+ " ecomm.userproductdetails as u,ecomm.product_master as p where"
+							+ " p.PRODUCT_ID=u.PRODUCT_ID and p.IS_ACTIVE='Y' and u.PURCHASE_STATUS='InCart' and u.user_id="
+							+ userId);
+			resultSet = pstmt.executeQuery();
+			while (resultSet.next()) {
+				userProductVo = new UserProductVo();
+				userProductVo.setProductId(resultSet.getInt("PRODUCT_ID"));
+				userProductVo.setProductPrice(resultSet
+						.getString("PRODUCT_PRICE"));
+				userProductVo.setUserProductQuantity(resultSet
+						.getString("USER_PRODUCT_QUANTITY"));
+				userProductVo.setProductPrice(resultSet
+						.getString("PRODUCT_PRICE"));
+				userProductVo.setProductPrice(resultSet
+						.getString("PRODUCT_PRICE"));
+				userProductVo.setIsActive(resultSet.getString("IS_ACTIVE"));
+				userProductVo.setProductName(resultSet
+						.getString("PRODUCT_NAME"));
+				productList.add(userProductVo);
+			}
+
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+		return productList;
+
 	}
 }
