@@ -101,10 +101,9 @@
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Brannd</th>
-                                            <th>Quantity</th>
-                                            <th>Price</th>
-                                            <th>Active</th>
+                                            <th width="20%">Brannd</th>
+                                            <!-- <th>Quantity</th> -->
+                                            <th width="10%">Price</th>
                                             <th class="center" width="25%">Action</th>
                                         </tr>
                                     </thead>
@@ -112,10 +111,9 @@
                                     <s:iterator value="productActions.productList">
                                         <tr class="gradeU">
                                             <td><s:property value="productName"/></td>
-                                            <td><s:property value="productBrand"/></td>
-                                            <td><s:property value="productQuantity"/></td>
-                                            <td><s:property value="productPrice"/></td>
-                                            <td><s:property value="isActive"/></td>
+                                            <td width="20%"><s:property value="productBrand"/></td>
+                                            <%-- <td><s:property value="productQuantity"/></td> --%>
+                                            <td width="10%"><s:property value="productPrice"/></td>
                                             <td class="center">
                                             <a href="productToCart?productId=<s:property value="productId"/>" class="btn btn-default add-to-cart">Product Details</a>
                                             <a href="productToCart?productId=<s:property value="productId"/>" class="btn btn-default add-to-cart">Add to cart</a>
