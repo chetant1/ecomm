@@ -210,7 +210,10 @@ public class UserAction extends ActionSupport implements SessionAware {
 			sessionMap.put("login", "true");
 			sessionMap.put("userid", loginUser.getUserId());
 			sessionMap.put("fName", loginUser.getFirstName());
-			result = SUCCESS;
+			if (loginUser.getUserRole().equals("admin"))
+				result = "adminpage";
+			else
+				result = "userpage";
 
 		}
 		return result;
@@ -224,6 +227,7 @@ public class UserAction extends ActionSupport implements SessionAware {
 			sessionMap.invalidate();
 			result = SUCCESS;
 		}
+		System.out.println("User Logout success");
 		return result;
 
 	}

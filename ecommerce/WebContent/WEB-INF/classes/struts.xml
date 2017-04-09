@@ -27,7 +27,14 @@
 		<action name="logincheck" class="com.ecommerce.actions.UserAction"
 			method="checkLogin">
 			<!-- <interceptor-ref name="checkLogin"/> -->
-			<result name="success" type="redirect">/index.jsp</result>
+			<result name="userpage" >/index.jsp</result>
+			<result name="adminpage" >/adminhome.jsp</result>
+			<result name="input" type="redirect">/?msg=error</result>
+		</action>
+		<action name="logout" class="com.ecommerce.actions.UserAction"
+			method="logout">
+			<!-- <interceptor-ref name="checkLogin"/> -->
+			<result name="success" type="redirect">/login.jsp</result>
 			<result name="input" type="redirect">/?msg=error</result>
 		</action>
 		

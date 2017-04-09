@@ -40,7 +40,7 @@
 							<ul class="nav navbar-nav">
 								<li><a href="checkout.jsp"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 								<li><a href="cart.jsp"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<li><a href="login.jsp"><i class="fa fa-lock"></i> Login</a></li>
+								<li><a href="logout"><i class="fa fa-lock"></i> Logout</a></li>
 							</ul>
 						</div>
 					</div>

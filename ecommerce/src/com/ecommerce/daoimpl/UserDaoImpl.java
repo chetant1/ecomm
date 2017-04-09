@@ -89,6 +89,7 @@ public class UserDaoImpl implements UserDao {
 				userVo = new UserVo();
 				userVo.setUserId(resultSet.getInt("USER_ID"));
 				userVo.setFirstName(resultSet.getString("FIRSTNAME"));
+				userVo.setUserRole(resultSet.getString("USERROLE"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
