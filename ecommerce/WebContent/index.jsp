@@ -34,7 +34,7 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="index.jsp"><img src="images/home/logo.png" alt="" /></a>
+							<a href="homePage?useraction=Home"><img src="images/home/logo.png" alt="" /></a>
 						</div>
 						<div class="btn-group pull-right">
 						</div>
@@ -42,9 +42,8 @@
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="checkout.jsp"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="cart.jsp"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<li><a href="logout"><i class="fa fa-lock"></i> Logout</a></li>
+								<li><a href="getAllUserCartProducts?useraction=Cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li><a href="logout?useraction=Logout"><i class="fa fa-lock"></i> Logout</a></li>
 								<li><a href="userDetails"><i class="fa fa-user"></i><s:property value="#session.fName"/></a></li>
 							</ul>
 						</div>
@@ -67,10 +66,10 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="index.jsp" class="active">Home</a></li>
+								<li><a href="homePage?useraction=Home" class="active">Home</a></li>
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="getUserProductList">Products</a></li>
+                                        <li><a href="getUserProductList?useraction=Products">Products</a></li>
                                     </ul>
                                 </li> 
 								<li><a href="contact-us.jsp">Contact</a></li>

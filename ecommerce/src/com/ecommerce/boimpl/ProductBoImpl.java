@@ -54,4 +54,10 @@ public class ProductBoImpl implements ProductBo {
 		return dao.getAllUserCartProduct(userId);
 	}
 
+	@Override
+	public int deleteCartProduct(int cartProductID) {
+		ProductDao dao = new ProductDaoImpl();
+		return dao.deleteCartProduct(cartProductID);
+	}
+
 }

@@ -268,6 +268,7 @@ public class UserAction extends ActionSupport implements SessionAware {
 			sessionMap.put("login", "true");
 			sessionMap.put("userid", loginUser.getUserId());
 			sessionMap.put("fName", loginUser.getFirstName());
+			sessionMap.put("userrole", loginUser.getUserRole());
 			if (loginUser.getUserRole().equals("admin"))
 				result = "adminpage";
 			else
@@ -336,5 +337,14 @@ public class UserAction extends ActionSupport implements SessionAware {
 		userProductList = productBo.getAllProduct();
 		productActions.setProductList(userProductList);
 		return "success";
+	}
+
+	public String getHomePage() {
+		String result = null;
+		if ((sessionMap.get("userrole").toString()).equals("admin"))
+			result = "adminpage";
+		else
+			result = "userpage";
+		return result;
 	}
 }

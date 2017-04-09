@@ -35,7 +35,7 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="index.jsp"><img src="images/home/logo.png" alt="" /></a>
+							<a href="homePage?useraction=Home"><img src="images/home/logo.png" alt="" /></a>
 						</div>
 						
 					</div>
@@ -45,7 +45,7 @@
 								<!-- <li><a href="checkout.jsp"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 								<li><a href="cart.jsp"><i class="fa fa-shopping-cart"></i> Cart</a></li> 
 								-->
-								<li><a href="logout"><i class="fa fa-lock"></i> Logout</a></li>
+								<li><a href="?useraction=Logout"><i class="fa fa-lock"></i> Logout</a></li>
 							</ul>
 						</div>
 					</div>
@@ -67,7 +67,7 @@
 						</div> -->
 						<div class="mainmenu pull-left">
 							<!-- <ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="index.jsp">Home</a></li>
+								<li><a href="homePage?useraction=Home">Home</a></li>
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="shop.jsp">Products</a></li>

@@ -21,4 +21,6 @@ public interface ProductDao {
 	public int addProductToCart(UserProductActions userProductActions);
 
 	public List<UserProductVo> getAllUserCartProduct(int userId);
+
+	public int deleteCartProduct(int cartProductID);
 }

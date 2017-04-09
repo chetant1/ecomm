@@ -125,6 +125,27 @@
 			<result name="success">/cart.jsp</result>
 			<result name="input">/?msg=error</result>
 		</action>
+		<action name="deleteCartProduct" class="com.ecommerce.actions.UserProductActions"
+			method="deleteCartProduct">
+			<interceptor-ref name="checkLogin"/>
+			<result name="success">/cart.jsp</result>
+			<result name="input">/?msg=error</result>
+		</action>
+		<action name="checkOutProduct" class="com.ecommerce.actions.UserProductActions"
+			method="checkOutProduct">
+			<interceptor-ref name="checkLogin"/>
+			<result name="success">/checkout.jsp</result>
+			<result name="input">/?msg=error</result>
+		</action>
+		
+		<action name="homePage" class="com.ecommerce.actions.UserAction"
+			method="getHomePage">
+			<interceptor-ref name="checkLogin"/>
+			<result name="userpage" >/index.jsp</result>
+			<result name="adminpage" >/adminhome.jsp</result>
+			<result name="input" type="redirect">/?msg=error</result>
+		</action>		
+		
 		
 	</package>
 

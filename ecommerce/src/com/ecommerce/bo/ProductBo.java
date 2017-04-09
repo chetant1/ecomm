@@ -13,7 +13,7 @@ public interface ProductBo {
 
 	public int addProduct(ProductActions productData);
 
-	public int deleteProduct(int parseInt);
+	public int deleteProduct(int productId);
 
 	public ProductVo editProduct(int parseInt);
 
@@ -22,4 +22,6 @@ public interface ProductBo {
 	public int addProductToCart(UserProductActions userProductActions);
 
 	public List<UserProductVo> getAllUserCartProduct(int userId);
+
+	public int deleteCartProduct(int cartProductID);
 }

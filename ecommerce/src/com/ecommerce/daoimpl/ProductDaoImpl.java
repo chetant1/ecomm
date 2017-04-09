@@ -72,8 +72,6 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public int deleteProduct(int productId) {
-
-		// TODO Auto-generated method stub
 		int productUpdate = 0;
 		try {
 			System.out.println("in deleteProduct daoImpl");
@@ -177,11 +175,14 @@ public class ProductDaoImpl implements ProductDao {
 					.prepareStatement("select u.USER_PRODUCT_ID,u.USER_ID,u.PRODUCT_ID,u.USER_PRODUCT_QUANTITY,u.PRODUCT_PRICE,"
 							+ "u.PURCHASE_STATUS,u.IS_ACTIVE,p.PRODUCT_NAME from"
 							+ " ecomm.userproductdetails as u,ecomm.product_master as p where"
-							+ " p.PRODUCT_ID=u.PRODUCT_ID and p.IS_ACTIVE='Y' and u.PURCHASE_STATUS='InCart' and u.user_id="
+							+ " p.PRODUCT_ID=u.PRODUCT_ID and u.IS_ACTIVE='Y' and u.PURCHASE_STATUS='InCart' and u.user_id="
 							+ userId);
 			resultSet = pstmt.executeQuery();
 			while (resultSet.next()) {
 				userProductVo = new UserProductVo();
+				userProductVo.setUserProductID(resultSet
+						.getInt("USER_PRODUCT_ID"));
+				userProductVo.setUserId(resultSet.getInt("USER_ID"));
 				userProductVo.setProductId(resultSet.getInt("PRODUCT_ID"));
 				userProductVo.setProductPrice(resultSet
 						.getString("PRODUCT_PRICE"));
@@ -202,5 +203,24 @@ public class ProductDaoImpl implements ProductDao {
 		}
 		return productList;
 
+	}
+
+	@Override
+	public int deleteCartProduct(int cartProductID) {
+		int productUpdate = 0;
+		try {
+			System.out.println("in deleteCartProduct daoImpl");
+			connection = DatabaseConnection.getConnection();
+			pstmt = connection
+					.prepareStatement("UPDATE `ecomm`.`userproductdetails` SET `IS_ACTIVE`='N' WHERE `USER_PRODUCT_ID`="
+							+ cartProductID);
+			productUpdate = pstmt.executeUpdate();
+			System.out.println("Out deleteCartProduct daoImpl");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Failed to update status" + e);
+			e.printStackTrace();
+		}
+		return productUpdate;
 	}
 }

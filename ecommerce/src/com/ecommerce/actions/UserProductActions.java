@@ -3,6 +3,9 @@ package com.ecommerce.actions;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -28,6 +31,7 @@ public class UserProductActions extends ActionSupport implements SessionAware {
 	private UserProductActions userProductActions;
 	private SessionMap<String, Object> sessionMap = null;
 	private List<UserProductVo> cartproductList;
+	private HttpServletRequest request = ServletActionContext.getRequest();
 
 	/**
 	 * @return the userProductID
@@ -203,4 +207,17 @@ public class UserProductActions extends ActionSupport implements SessionAware {
 		return "success";
 	}
 
+	public String deleteCartProduct() {
+		ProductBo productBo = new ProductBoImpl();
+		productBo.deleteCartProduct(Integer.parseInt((request
+				.getParameter("userProductId")).toString()));
+		setCartproductList(productBo.getAllUserCartProduct(Integer
+				.parseInt((sessionMap.get("userid")).toString())));
+		return "success";
+
+	}
+
+	public String checkOutProduct() {
+		return "success";
+	}
 }

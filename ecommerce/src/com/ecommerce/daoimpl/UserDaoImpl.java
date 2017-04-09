@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -20,6 +23,8 @@ public class UserDaoImpl implements UserDao {
 	PreparedStatement pstmt = null;
 	ResultSet resultSet = null;
 	String result = null;
+	private static final DateFormat sdf = new SimpleDateFormat(
+			"yyyy/MM/dd HH:mm:ss");
 
 	@Override
 	public int registeruser(UserAction user) {
@@ -212,5 +217,32 @@ public class UserDaoImpl implements UserDao {
 			e.printStackTrace();
 		}
 		return updateUser;
+	}
+
+	public int trackUserActivity(int userId, String userAction) {
+		int iuserCreated = 0;
+		connection = DatabaseConnection.getConnection();
+		Calendar cal = Calendar.getInstance();
+		String date = sdf.format(cal.getTime());
+		String datetime[] = date.split(" ");
+		String actionDate = datetime[0];
+		String actionTIme = datetime[1];
+		String sqlQuery = "INSERT INTO `ecomm`.`user_activity` (`USER_ID`, `USER_ACTION`, `ACTIVITY_DATE`, `START_TIME`, `END_TIME`, `TIME_SPEND`) "
+				+ "VALUES (?,?,?,?,?,?)";
+		try {
+			pstmt = connection.prepareStatement(sqlQuery);
+			pstmt.setInt(1, userId);
+			pstmt.setString(2, userAction);
+			pstmt.setString(3, actionDate);
+			pstmt.setString(4, actionTIme);
+			pstmt.setString(5, "yet to add");
+			pstmt.setString(6, "yet to add");
+			iuserCreated = pstmt.executeUpdate();
+			System.out.println("Registration Successfull" + iuserCreated);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return iuserCreated;
+
 	}
 }

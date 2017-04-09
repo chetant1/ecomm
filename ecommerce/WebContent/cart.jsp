@@ -35,17 +35,16 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="index.jsp"><img src="images/home/logo.png" alt="" /></a>
+							<a href="homePage?useraction=Home"><img src="images/home/logo.png" alt="" /></a>
 						</div>
 						
 					</div>
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="checkout.jsp"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="getAllUserCartProducts" class="active"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li><a href="getAllUserCartProducts?useraction=Cart" class="active"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 								<li><a href="login.jsp"><i class="fa fa-lock"></i> Login</a></li>
-								<li><a href="logout"><i class="fa fa-lock"></i> Logout</a></li>
+								<li><a href="logout?useraction=Logout"><i class="fa fa-lock"></i> Logout</a></li>
 							</ul>
 						</div>
 					</div>
@@ -67,7 +66,7 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="index.jsp">Home</a></li>
+								<li><a href="homePage?useraction=Home">Home</a></li>
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="shop.jsp">Products</a></li>
@@ -88,7 +87,7 @@
 		<div class="container">
 			<div class="breadcrumbs">
 				<ol class="breadcrumb">
-				  <li><a href="#">Home</a></li>
+				  <li><a href="homePage?useraction=Home">Home</a></li>
 				  <li class="active">Shopping Cart</li>
 				</ol>
 			</div>
@@ -118,14 +117,14 @@
 							</td>
 							<td class="cart_quantity">
 								<div class="cart_quantity_button">
-									<input class="cart_quantity_input" type="text" name="quantity" value='<s:property value="userProductQuantity"/>' autocomplete="off" size="2">
+									<input class="cart_quantity_input" readonly="readonly" type="text" name="quantity" value='<s:property value="userProductQuantity"/>' autocomplete="off" size="2">
 								</div>
 							</td>
 							<td class="cart_total">
 								<p class="cart_total_price">$59</p>
 							</td>
 							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+								<a class="cart_quantity_delete" href="deleteCartProduct?useraction=Delete cart product&userProductId=<s:property value="userProductID"/>"><i class="fa fa-times"></i></a>
 							</td>
 						</tr>
 					</s:iterator>
@@ -147,7 +146,7 @@
 							<li>Shipping Cost <span>Free</span></li>
 							<li>Total <span>$61</span></li>
 						</ul>
-							<a class="btn btn-default check_out" href="">Check Out</a>
+							<a class="btn btn-default check_out" href="checkOutProduct?useraction=Check Out">Check Out</a>
 					</div>
 				</div>
 			</div>
