@@ -69,7 +69,7 @@
 								<li><a href="homePage?useraction=Home">Home</a></li>
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.jsp">Products</a></li>
+                                        <li><a href="getUserProductList?useraction=Products">Products</a></li>
                                     </ul>
                                 </li> 
 								

@@ -40,16 +40,16 @@ public class UserDaoImpl implements UserDao {
 			pstmt.setString(5, user.getUserRole());
 			iuserCreated = pstmt.executeUpdate();
 			if (iuserCreated == 1) {
-				// sendEmailToUser(user, user.getPassword());
+				sendEmailToUser(user, user.getPassword());
 			}
 			System.out.println("Registration Successfull" + iuserCreated);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} // catch (MessagingException e) {
-			// // TODO Auto-generated catch block
-			// e.printStackTrace();
-			// }
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return iuserCreated;
 	}
 

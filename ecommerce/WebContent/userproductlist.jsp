@@ -89,43 +89,22 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
-				<div class="panel panel-default">
-                        <div class="panel-heading">
-                            Product Details
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th width="20%">Brannd</th>
-                                            <!-- <th>Quantity</th> -->
-                                            <th width="10%">Price</th>
-                                            <th class="center" width="25%">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <s:iterator value="productActions.productList">
-                                        <tr class="gradeU">
-                                            <td><s:property value="productName"/></td>
-                                            <td width="20%"><s:property value="productBrand"/></td>
-                                            <%-- <td><s:property value="productQuantity"/></td> --%>
-                                            <td width="10%"><s:property value="productPrice"/></td>
-                                            <td class="center">
-                                            <a href="getUserProductDetails?useraction=Product Details&productId=<s:property value="productId"/>" class="btn btn-default add-to-cart">Product Details</a>
-                                            <%-- <a href="productToCart?productId=<s:property value="productId"/>" class="btn btn-default add-to-cart">Add to cart</a>
-                                            &nbsp;&nbsp; --%>
-                                            </td>
-                                        </tr>
-                                     </s:iterator>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>	
+                    <s:iterator value="productActions.productList">
+                    <div class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<img src="images/home/gallery1.jpg" alt="" />
+												<h2><s:property value="productName"/></h2>
+												<h2>$<s:property value="productPrice"/></h2>
+												<p><s:property value="productQuantity"/></p>
+												<a href="getUserProductDetails?useraction=Product Details&productId=<s:property value="productId"/>" class="btn btn-default add-to-cart">Product Details</a>
+											</div>
+										</div>
+									</div>
+								</div>
+					</s:iterator>                    
+                    
 				</div>
 					
 				</div>

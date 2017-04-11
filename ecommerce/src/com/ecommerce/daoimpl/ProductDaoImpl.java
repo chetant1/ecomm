@@ -39,6 +39,8 @@ public class ProductDaoImpl implements ProductDao {
 						.getString("PRODUCT_QUANTITY"));
 				productVo.setProductPrice(resultSet.getString("PRODUCT_PRICE"));
 				productVo.setIsActive(resultSet.getString("IS_ACTIVE"));
+				productVo.setProductDetails(resultSet
+						.getString("PRODUCT_DETAILS"));
 				productList.add(productVo);
 			}
 
@@ -54,7 +56,7 @@ public class ProductDaoImpl implements ProductDao {
 		int productAdd = 0;
 		connection = DatabaseConnection.getConnection();
 		String sqlQuery = "INSERT INTO `ecomm`.`product_master` (`PRODUCT_NAME`, `PRODUCT_BRAND`, `PRODUCT_QUANTITY`, `PRODUCT_PRICE`,"
-				+ "`IS_ACTIVE`) VALUES (?,?,?,?,?)";
+				+ "`IS_ACTIVE`, `PRODUCT_DETAILS`) VALUES (?,?,?,?,?,?)";
 		try {
 			pstmt = connection.prepareStatement(sqlQuery);
 			pstmt.setString(1, productData.getProductName());
@@ -62,6 +64,7 @@ public class ProductDaoImpl implements ProductDao {
 			pstmt.setString(3, productData.getProductQuantity());
 			pstmt.setString(4, productData.getProductPrice());
 			pstmt.setString(5, "Y");
+			pstmt.setString(6, productData.getProductDetails());
 			productAdd = pstmt.executeUpdate();
 			System.out.println("productAdd Successfull" + productAdd);
 		} catch (SQLException e) {
@@ -108,6 +111,8 @@ public class ProductDaoImpl implements ProductDao {
 						.getString("PRODUCT_QUANTITY"));
 				productVo.setProductPrice(resultSet.getString("PRODUCT_PRICE"));
 				productVo.setIsActive(resultSet.getString("IS_ACTIVE"));
+				productVo.setProductDetails(resultSet
+						.getString("PRODUCT_DETAILS"));
 			}
 
 		} catch (Exception exception) {
@@ -125,12 +130,13 @@ public class ProductDaoImpl implements ProductDao {
 			connection = DatabaseConnection.getConnection();
 			pstmt = connection
 					.prepareStatement("UPDATE `ecomm`.`product_master` SET `PRODUCT_NAME`=?, `PRODUCT_BRAND`=?,"
-							+ " `PRODUCT_QUANTITY`=?, `PRODUCT_PRICE`=? WHERE `PRODUCT_ID`="
+							+ " `PRODUCT_QUANTITY`=?, `PRODUCT_PRICE`=?,`PRODUCT_DETAILS`=? WHERE `PRODUCT_ID`="
 							+ productData.getProductId());
 			pstmt.setString(1, productData.getProductName());
 			pstmt.setString(2, productData.getProductBrand());
 			pstmt.setString(3, productData.getProductQuantity());
 			pstmt.setString(4, productData.getProductPrice());
+			pstmt.setString(5, productData.getProductDetails());
 			productUpdate = pstmt.executeUpdate();
 			System.out.println("Out updateProduct daoImpl");
 		} catch (Exception e) {
@@ -174,7 +180,7 @@ public class ProductDaoImpl implements ProductDao {
 		try {
 			pstmt = connection
 					.prepareStatement("select u.USER_PRODUCT_ID,u.USER_ID,u.PRODUCT_ID,u.USER_PRODUCT_QUANTITY,u.PRODUCT_PRICE,"
-							+ "u.PURCHASE_STATUS,u.IS_ACTIVE,p.PRODUCT_NAME from"
+							+ "u.PURCHASE_STATUS,u.IS_ACTIVE,p.PRODUCT_NAME,p.PRODUCT_DETAILS from"
 							+ " ecomm.userproductdetails as u,ecomm.product_master as p where"
 							+ " p.PRODUCT_ID=u.PRODUCT_ID and u.IS_ACTIVE='Y' and u.PURCHASE_STATUS='InCart' and u.user_id="
 							+ userId);
@@ -196,6 +202,8 @@ public class ProductDaoImpl implements ProductDao {
 				userProductVo.setIsActive(resultSet.getString("IS_ACTIVE"));
 				userProductVo.setProductName(resultSet
 						.getString("PRODUCT_NAME"));
+				userProductVo.setProductDetails(resultSet
+						.getString("PRODUCT_DETAILS"));
 				productList.add(userProductVo);
 			}
 

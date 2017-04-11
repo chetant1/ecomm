@@ -28,6 +28,7 @@ public class ProductActions extends ActionSupport {
 	private List<ProductVo> productList = null;
 	private ProductVo productVo = null;
 	private HttpServletRequest request = ServletActionContext.getRequest();
+	private String productDetails;
 
 	/**
 	 * @return the productId
@@ -214,6 +215,21 @@ public class ProductActions extends ActionSupport {
 		setProductVo(productBo.editProduct(Integer.parseInt(request
 				.getParameter("productId"))));
 		return "success";
+	}
+
+	/**
+	 * @return the productDetails
+	 */
+	public String getProductDetails() {
+		return productDetails;
+	}
+
+	/**
+	 * @param productDetails
+	 *            the productDetails to set
+	 */
+	public void setProductDetails(String productDetails) {
+		this.productDetails = productDetails;
 	}
 
 }

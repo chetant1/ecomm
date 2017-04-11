@@ -90,7 +90,7 @@
 			<div class="row">
 				<div class="col-sm-9 padding-right">
 					<div class="product-details"><!--product-details-->
-						<div class="col-sm-5">
+						<div class="col-sm-3">
 							<div class="view-product">
 								<img src="images/product-details/1.jpg" alt="" />
 								
@@ -98,9 +98,10 @@
 							
 
 						</div>
-						<div class="col-sm-5">
+						<div class="col-sm-8">
 						<form action="productToCart?useraction=Add to Cart" method="post">
 							<div class="product-information"><!--/product-information-->
+							
 								<img src="images/product-details/new.jpg" class="newarrival" alt="" />
 								<h2><s:property value="productVo.productName"/></h2>
 								<span>
@@ -113,6 +114,9 @@
 								<input type="hidden" name="userProductActions.purchaseStatus" value="InCart">
 								<input type="hidden" name="userProductActions.productId" value='<s:property value="productId"/>'/>
 								 <input type="submit" class="btn btn-default add-to-cart" value="Add to cart">
+								 <h2>Details</h2>
+								 <s:property
+											value="productVo.productDetails" /> 
 							</div><!--/product-information-->
 						</form>
 						</div>

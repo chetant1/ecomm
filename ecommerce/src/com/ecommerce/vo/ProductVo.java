@@ -13,6 +13,7 @@ public class ProductVo {
 	private ProductActions productActions;
 	List<ProductActions> productList;
 	private String isActive;
+	private String productDetails;
 
 	/**
 	 * @return the productId
@@ -132,5 +133,19 @@ public class ProductVo {
 	 */
 	public void setIsActive(String isActive) {
 		this.isActive = isActive;
+	}
+
+	/**
+	 * @return the productDetails
+	 */
+	public String getProductDetails() {
+		return productDetails;
+	}
+
+	/**
+	 * @param productDetails the productDetails to set
+	 */
+	public void setProductDetails(String productDetails) {
+		this.productDetails = productDetails;
 	}
 }

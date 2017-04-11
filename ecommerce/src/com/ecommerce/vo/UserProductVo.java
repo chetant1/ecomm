@@ -9,6 +9,7 @@ public class UserProductVo {
 	private String productPrice;
 	private String purchaseStatus;
 	private String isActive;
+	private String productDetails;
 
 	/**
 	 * @return the userProductID
@@ -123,10 +124,26 @@ public class UserProductVo {
 	}
 
 	/**
-	 * @param productName the productName to set
+	 * @param productName
+	 *            the productName to set
 	 */
 	public void setProductName(String productName) {
 		this.productName = productName;
+	}
+
+	/**
+	 * @return the productDetails
+	 */
+	public String getProductDetails() {
+		return productDetails;
+	}
+
+	/**
+	 * @param productDetails
+	 *            the productDetails to set
+	 */
+	public void setProductDetails(String productDetails) {
+		this.productDetails = productDetails;
 	}
 
 }

@@ -41,7 +41,7 @@
 								<!-- <li><a href="checkout.jsp"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 								<li><a href="cart.jsp"><i class="fa fa-shopping-cart"></i> Cart</a></li> 
 								<li><a href="login.jsp" class="active"><i class="fa fa-lock"></i> Login</a></li>-->
-								<li><a href="logout"><i class="fa fa-lock"></i> Logout</a></li>
+								<li><a href="logout?useraction=Logout"><i class="fa fa-lock"></i> Logout</a></li>
 							</ul>
 						</div>
 					</div>
@@ -53,27 +53,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-9">
-						<!-- <div class="navbar-header">
-							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-								<span class="sr-only">Toggle navigation</span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-							</button>
-						</div> -->
 						<div class="mainmenu pull-left">
-							<!-- <ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="index.jsp">Home</a></li>
-								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.jsp">Products</a></li>
-										<li><a href="checkout.jsp">Checkout</a></li> 
-										<li><a href="cart.jsp">Cart</a></li> 
-										<li><a href="login.jsp" class="active">Login</a></li> 
-                                    </ul>
-                                </li> 
-								<li><a href="contact-us.jsp">Contact</a></li>
-							</ul> -->
 						</div>
 					</div>
 					
