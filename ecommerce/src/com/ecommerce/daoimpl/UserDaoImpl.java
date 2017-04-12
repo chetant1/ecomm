@@ -5,10 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.mail.MessagingException;
 
@@ -49,6 +52,14 @@ public class UserDaoImpl implements UserDao {
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		if (null != connection) {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return iuserCreated;
 	}
@@ -99,6 +110,14 @@ public class UserDaoImpl implements UserDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		if (null != connection) {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		return userVo;
 	}
 
@@ -125,6 +144,14 @@ public class UserDaoImpl implements UserDao {
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
+		if (null != connection) {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		return userList;
 	}
 
@@ -148,6 +175,14 @@ public class UserDaoImpl implements UserDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		if (null != connection) {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		return userAdd;
 	}
 
@@ -166,6 +201,14 @@ public class UserDaoImpl implements UserDao {
 			// TODO: handle exception
 			System.out.println("Failed to update status" + e);
 			e.printStackTrace();
+		}
+		if (null != connection) {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return deleteUser;
 	}
@@ -217,6 +260,14 @@ public class UserDaoImpl implements UserDao {
 			System.out.println("Failed to update status" + e);
 			e.printStackTrace();
 		}
+		if (null != connection) {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		return updateUser;
 	}
 
@@ -224,26 +275,86 @@ public class UserDaoImpl implements UserDao {
 		int iuserCreated = 0;
 		connection = DatabaseConnection.getConnection();
 		Calendar cal = Calendar.getInstance();
-		String date = sdf.format(cal.getTime());
-		String datetime[] = date.split(" ");
+		String startDate = sdf.format(cal.getTime());
+		String datetime[] = startDate.split(" ");
 		String actionDate = datetime[0];
-		String actionTIme = datetime[1];
-		String sqlQuery = "INSERT INTO `ecomm`.`user_activity` (`USER_ID`, `USER_ACTION`, `ACTIVITY_DATE`, `START_TIME`, `END_TIME`, `TIME_SPEND`) "
-				+ "VALUES (?,?,?,?,?,?)";
+		String startActionTIme = datetime[1];
+		String sqlQuery = "INSERT INTO `ecomm`.`user_activity` (`USER_ID`, `USER_ACTION`, `ACTIVITY_DATE`, `START_TIME`) "
+				+ "VALUES (?,?,?,?)";
 		try {
 			pstmt = connection.prepareStatement(sqlQuery);
 			pstmt.setInt(1, userId);
 			pstmt.setString(2, userAction);
 			pstmt.setString(3, actionDate);
-			pstmt.setString(4, actionTIme);
-			pstmt.setString(5, "yet to add");
-			pstmt.setString(6, "yet to add");
+			pstmt.setString(4, startActionTIme);
 			iuserCreated = pstmt.executeUpdate();
 			System.out.println("Registration Successfull" + iuserCreated);
+			if (iuserCreated == 1) {
+				String userTrackIDQuery = "SELECT max(USER_TRACK_ID) as USER_TRACK_ID FROM user_activity WHERE USER_TRACK_ID < (SELECT max(USER_TRACK_ID) FROM user_activity) and user_id="
+						+ userId;
+				pstmt = connection.prepareStatement(userTrackIDQuery);
+				resultSet = pstmt.executeQuery();
+				int userTrackId = 0;
+				if (resultSet.next()) {
+					userTrackId = resultSet.getInt("USER_TRACK_ID");
+				}
+				String endSqlQuery = "UPDATE `ecomm`.`user_activity` SET `END_TIME`=? WHERE `USER_TRACK_ID`="
+						+ userTrackId;
+				pstmt = connection.prepareStatement(endSqlQuery);
+				pstmt.setString(1, startActionTIme);
+				int iusertimeSpend = pstmt.executeUpdate();
+				if (iusertimeSpend == 1) {
+					String iuserTrackIDQuery = "select start_time,end_time from ecomm.user_activity where user_track_id="
+							+ userTrackId;
+					pstmt = connection.prepareStatement(iuserTrackIDQuery);
+					resultSet = pstmt.executeQuery();
+					String endActionTime = null;
+					String StartActionTime = null;
+					if (resultSet.next()) {
+						StartActionTime = resultSet.getString("start_time");
+						endActionTime = resultSet.getString("end_time");
+					}
+					String timeSpend = timeSpend(StartActionTime, endActionTime);
+					String timeSpendquery = "UPDATE `ecomm`.`user_activity` SET `TIME_SPEND`=? WHERE `USER_TRACK_ID`="
+							+ userTrackId;
+					pstmt = connection.prepareStatement(timeSpendquery);
+					pstmt.setString(1, timeSpend);
+					int itimeSpend = pstmt.executeUpdate();
+					System.out.println("ime difference added" + itimeSpend);
+				}
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		if (null != connection) {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		return iuserCreated;
 
+	}
+
+	public String timeSpend(String sTime, String eTime) {
+		Date sdate = null;
+		Date edate = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+		try {
+			sdate = sdf.parse(sTime);
+			edate = sdf.parse(eTime);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		long duration = edate.getTime() - sdate.getTime();
+
+		long diffInSeconds = TimeUnit.MILLISECONDS.toSeconds(duration);
+		long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(duration);
+		long diffInHours = TimeUnit.MILLISECONDS.toHours(duration);
+		String timeSpend = "" + diffInHours + ":" + diffInMinutes + ":"
+				+ diffInSeconds;
+		return timeSpend;
 	}
 }
