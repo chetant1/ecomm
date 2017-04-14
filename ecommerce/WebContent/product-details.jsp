@@ -26,6 +26,85 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    
+    <style type="text/css">
+    ::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+    
+    ul.enlarge{
+list-style-type:none; /*remove the bullet point*/
+margin-left:0;
+}
+ul.enlarge li{
+display:inline-block; /*places the images in a line*/
+position: relative;
+z-index: 0; /*resets the stack order of the list items - later we'll increase this*/
+margin:10px 40px 0 20px;
+}
+ul.enlarge img{
+background-color:#eae9d4;
+padding: 6px;
+-webkit-box-shadow: 0 0 6px rgba(132, 132, 132, .75);
+-moz-box-shadow: 0 0 6px rgba(132, 132, 132, .75);
+box-shadow: 0 0 6px rgba(132, 132, 132, .75);
+-webkit-border-radius: 4px; 
+-moz-border-radius: 4px; 
+border-radius: 4px; 
+}
+ul.enlarge span{
+position:absolute;
+left: -9999px;
+background-color:#eae9d4;
+padding: 10px;
+font-family: 'Droid Sans', sans-serif;
+font-size:.9em;
+text-align: center; 
+color: #495a62; 
+-webkit-box-shadow: 0 0 20px rgba(0,0,0, .75));
+-moz-box-shadow: 0 0 20px rgba(0,0,0, .75);
+box-shadow: 0 0 20px rgba(0,0,0, .75);
+-webkit-border-radius: 8px; 
+-moz-border-radius: 8px; 
+border-radius:8px;
+}
+ul.enlarge li:hover{
+z-index: 50;
+cursor:pointer;
+}
+ul.enlarge span img{
+padding:2px;
+background:#ccc;
+}
+ul.enlarge li:hover span{ 
+top: -10px; /*the distance from the bottom of the thumbnail to the top of the popup image*/
+left: -80px; /*distance from the left of the thumbnail to the left of the popup image*/
+}
+/* ul.enlarge li:hover:nth-child(2) span{ 
+top: -10px;
+left: -60px;    
+}
+ul.enlarge li:hover:nth-child(3) span{
+top: -10px;
+left: -60px;
+bottom: -10px;  
+} */
+/**IE Hacks - see http://css3pie.com/ for more info on how to use CS3Pie and to download the latest version**/
+ul.enlarge img, ul.enlarge span{
+behavior: url(pie/PIE.htc); 
+}
+    
+    </style>
 </head><!--/head-->
 
 <body>
@@ -88,7 +167,7 @@
 	<section>
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-9 padding-right">
+				<div class="col-sm-12 padding-right">
 					<div class="product-details"><!--product-details-->
 						<div class="col-sm-3">
 							<div class="view-product">
@@ -98,16 +177,17 @@
 							
 
 						</div>
-						<div class="col-sm-8">
+					
+						<div class="col-sm-6">
 						<form action="productToCart?useraction=Add to Cart" method="post">
 							<div class="product-information"><!--/product-information-->
 							
 								<img src="images/product-details/new.jpg" class="newarrival" alt="" />
 								<h2><s:property value="productVo.productName"/></h2>
 								<span>
-									<span>US $<input type="text" name="userProductActions.productPrice" value='<s:property value="productVo.productPrice"/>'/></span><br/>
-									<label>In Stock:<s:property value="productVo.productQuantity"/></label><br/>
-									<label>Quantity:<input name="userProductActions.userProductQuantity" type="text" value="3" /></label><br/>
+									<span>US $<input type="text" name="userProductActions.productPrice" value='<s:property value="productVo.productPrice"/>'/></span>
+									<label>In Stock:<s:property value="productVo.productQuantity"/></label>
+									<label>Quantity:<input name="userProductActions.userProductQuantity" type="text" value="3" /></label>
 								</span>
 								<p><b>Condition:</b> New</p>
 								<p><b>Brand:</b><s:property value="productVo.productBrand"/></p>
@@ -120,8 +200,23 @@
 							</div><!--/product-information-->
 						</form>
 						</div>
+						<div class="col-sm-3" style=" overflow: auto">
+								<ul class="enlarge">
+<li><img src="asset/image-enlarge01-sml.jpg" width="150px" height="100px" alt="Dechairs" class="img-responsive"/><span><img src="asset/one.png" alt="Deckchairs" /></span></li>
+<li><img src="asset/image-enlarge03-sml.jpg" width="150px" height="100px" alt="Blackpool pier" class="img-responsive"/><span><img src="asset/two.png" alt="Blackpool pier" /><br /></span></li>
+<li><img src="asset/image-enlarge03-sml.jpg" width="150px" height="100px" alt="Blackpool pier" class="img-responsive"/><span><img src="asset/two.png" alt="Blackpool pier" /><br /></span></li>
+</ul>
+						</div>
 					</div><!--/product-details-->
 				</div>
+					<div class="col-sm-2">
+							<!-- <div class="view-product">
+								<img src="images/product-details/1.jpg" alt="" />
+								
+							</div> -->
+							
+							
+						</div>
 			</div>
 		</div>
 	</section>
