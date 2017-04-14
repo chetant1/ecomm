@@ -1,9 +1,13 @@
 package com.ecommerce.actions;
 
+//import org.apache.struts2.components.File;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 
 import com.ecommerce.bo.ProductBo;
@@ -29,6 +33,9 @@ public class ProductActions extends ActionSupport {
 	private ProductVo productVo = null;
 	private HttpServletRequest request = ServletActionContext.getRequest();
 	private String productDetails;
+	private File userImage;
+	private String userImageContentType;
+	private String userImageFileName;
 
 	/**
 	 * @return the productId
@@ -176,10 +183,22 @@ public class ProductActions extends ActionSupport {
 	}
 
 	public String addProduct() {
-		ProductBo productBo = new ProductBoImpl();
-		productBo.addProduct(productActions);
-		productList = productBo.getAllProduct();
-		setProductList(productList);
+		/*
+		 * ProductBo productBo = new ProductBoImpl();
+		 * productBo.addProduct(productActions);
+		 */
+
+		String newpath = "C:/Users/chetan/git/ecomm/ecommerce/productimages";
+		File fileToCreate;
+		try {
+			fileToCreate = new File(newpath, userImageFileName);
+			FileUtils.copyFile(userImage, fileToCreate);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		// productList = productBo.getAllProduct();
+		// setProductList(productList);
 		return "success";
 	}
 
@@ -230,6 +249,51 @@ public class ProductActions extends ActionSupport {
 	 */
 	public void setProductDetails(String productDetails) {
 		this.productDetails = productDetails;
+	}
+
+	/**
+	 * @return the userImage
+	 */
+	public File getUserImage() {
+		return userImage;
+	}
+
+	/**
+	 * @param userImage
+	 *            the userImage to set
+	 */
+	public void setUserImage(File userImage) {
+		this.userImage = userImage;
+	}
+
+	/**
+	 * @return the userImageContentType
+	 */
+	public String getUserImageContentType() {
+		return userImageContentType;
+	}
+
+	/**
+	 * @param userImageContentType
+	 *            the userImageContentType to set
+	 */
+	public void setUserImageContentType(String userImageContentType) {
+		this.userImageContentType = userImageContentType;
+	}
+
+	/**
+	 * @return the userImageFileName
+	 */
+	public String getUserImageFileName() {
+		return userImageFileName;
+	}
+
+	/**
+	 * @param userImageFileName
+	 *            the userImageFileName to set
+	 */
+	public void setUserImageFileName(String userImageFileName) {
+		this.userImageFileName = userImageFileName;
 	}
 
 }

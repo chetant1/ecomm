@@ -80,7 +80,7 @@
 		<div class="container">
 			<div class="login-form">
 				<!--login form-->
-				<form action="addProduct" method="post">
+				<form action="addProduct" method="post" enctype="multipart/form-data">
 
 					<div class="row">
 
@@ -115,11 +115,14 @@
 								<textarea rows="5" cols="3" placeholder="Product Details"
 									name="productActions.productDetails"></textarea>
 							</div>
-							<div class="col-sm-4 ">
+							<div class="col-sm-3 ">
+							<s:file name="userImage" label="Image" class="btn btn-default"/> 
+							</div>
+							<div class="col-sm-3 ">
 								<button type="submit" class="btn btn-default">Add
 									product</button>
 							</div>
-							<div class="col-sm-4 "></div>
+							
 						</div>
 					</div>
 				</form>
