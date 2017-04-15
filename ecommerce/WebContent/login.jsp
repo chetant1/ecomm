@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,6 +23,8 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <!-- jQuery Form Validation code -->
+  
 </head><!--/head-->
 
 <body>
@@ -38,9 +41,6 @@
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<!-- <li><a href="checkout.jsp"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="cart.jsp"><i class="fa fa-shopping-cart"></i> Cart</a></li> 
-								<li><a href="login.jsp" class="active"><i class="fa fa-lock"></i> Login</a></li>-->
 							</ul>
 						</div>
 					</div>
@@ -52,27 +52,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-9">
-						<!-- <div class="navbar-header">
-							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-								<span class="sr-only">Toggle navigation</span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-							</button>
-						</div> -->
 						<div class="mainmenu pull-left">
-							<!-- <ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="index.jsp">Home</a></li>
-								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.jsp">Products</a></li>
-										<li><a href="checkout.jsp">Checkout</a></li> 
-										<li><a href="cart.jsp">Cart</a></li> 
-										<li><a href="login.jsp" class="active">Login</a></li> 
-                                    </ul>
-                                </li> 
-								<li><a href="contact-us.jsp">Contact</a></li>
-							</ul> -->
 						</div>
 					</div>
 					
@@ -87,9 +67,9 @@
 				<div class="col-sm-4 col-sm-offset-1">
 					<div class="login-form"><!--login form-->
 						<h2>Login to your account</h2>
-						<form action="logincheck" method="post">
-							<input type="text" placeholder="First Name" name="userAction.firstName"/>
-							<input type="password" placeholder="Password" name="userAction.password"/>
+						<form action="logincheck" method="post" name="login-form" id="login-form">
+							<input type="text" placeholder="First Name" name="userAction.firstName" id="loginfirstName"/>
+							<input type="password" placeholder="Password" name="userAction.password" id="loginpassword"/>
 							<button type="submit" class="btn btn-default">Login</button>
 						</form>
 					</div><!--/login form-->
@@ -100,10 +80,11 @@
 				<div class="col-sm-4">
 					<div class="signup-form"><!--sign up form-->
 						<h2>New User Signup!</h2>
-						<form action="registerUser" method="post">
-							<input type="text" placeholder="First Name" name="userAction.firstName"/>
-							<input type="email" placeholder="Email Address" name="userAction.emailId"/>
-							<input type="password" placeholder="Password" name="userAction.password"/>
+						<form action="registerUser" method="post" name="register-form" id="register-form">
+							<input type="text" placeholder="First Name" name="userAction.firstName" id="firstName" />
+							<input type="text" placeholder="Last Name" name="userAction.lastName" id="lastName"/>
+							<input type="email" placeholder="Email Address" name="userAction.emailId" id="email"/>
+							<input type="password" placeholder="Password" name="userAction.password" id="password"/>
 							<input type="hidden" name="userAction.userRole" value="user">
 							<button type="submit" class="btn btn-default">Signup</button>
 						</form>
@@ -171,6 +152,68 @@
 	<script src="js/jquery.scrollUp.min.js"></script>
 	<script src="js/price-range.js"></script>
     <script src="js/jquery.prettyPhoto.js"></script>
-    <script src="js/main.js"></script>
-</body>
+    <%-- <script src="js/main.js"></script> --%>
+     <!-- jQuery 2.1.4 -->
+    <script src='<s:url value="jQuery/jQuery-2.1.4.min.js"/>'></script>
+    <script src='<s:url value="jQuery/jquery.validate.min.js"/>'></script>
+  <script type="text/javascript">
+
+  
+  $(function() {
+	  
+	    $("#register-form").validate({
+	    	submitHandler: function(form) {
+	            form.submit();
+	        }
+	    });
+	    $('#firstName').rules("add",
+	    		{
+	    		    required: true,
+	    		    messages: { required: 'First name is required.' }
+	    		});
+	    $('#lastName').rules("add",
+	    		{
+	    		    required: true,
+	    		    messages: { required: 'Last name is required.' }
+	    		});
+	    $('#email').rules("add",
+	    		{
+	    		    required: true,
+	    		    email: true,
+	    		    messages: { required: 'Please enter a valid email address' }
+	    		});
+	    $('#password').rules("add",
+	    		{
+	    		    required: true,
+	    		    minlength: 5,
+	    		    messages: 
+	    		    { required: 'Please enter password',
+	    		    	minlength: 'Your password must be at least 5 characters long'
+	    		    	}
+	    		});
+	});
+  
+$(function() {
+	$("#login-form").validate({
+    	submitHandler: function(form) {
+            form.submit();
+        }
+    });
+	 $('#loginfirstName').rules("add",
+	    		{
+	    		    required: true,
+	    		    messages: { required: 'First name is required.' }
+	    		});
+	 $('#loginpassword').rules("add",
+	    		{
+	    		    required: true,
+	    		    minlength: 5,
+	    		    messages: 
+	    		    { required: 'Please enter password',
+	    		    	minlength: 'Your password must be at least 5 characters long'
+	    		    	}
+	    		});
+	  
+  });
+  </script></body>
 </html>

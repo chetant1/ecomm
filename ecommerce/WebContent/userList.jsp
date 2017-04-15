@@ -92,21 +92,21 @@
 				<div class="col-sm-3 col-sm-offset-1">
 					<div class="login-form"><!--login form-->
 					<h2>Manage user Details</h2>
-					<form action="addUser" method="post">
-							<input type="text" placeholder="First Name" name="userAction.firstName"/>
-							<input type="text" placeholder="Last Name" name="userAction.lastName"/>
-							<input type="text" placeholder="Email" name="userAction.emailId"/>
-							<input type="text" placeholder="Mobile No" name="userAction.mobileNumber">
-							<input type="password" placeholder="Password" name="userAction.password">
+					<form action="addUser" method="post" name="register-form" id="register-form">
+							<input type="text" placeholder="First Name" name="userAction.firstName" id="firstName" />
+							<input type="text" placeholder="Last Name" name="userAction.lastName" id="lastName"/>
+							<input type="text" placeholder="Email" name="userAction.emailId" id="email"/>
+							<input type="text" placeholder="Mobile No" name="userAction.mobileNumber" id="mobile">
+							<input type="password" placeholder="Password" name="userAction.password" id="password"/>
 							<input type="hidden" name="userAction.userRole" value="user">
 							<button type="submit" class="btn btn-default">Add User</button>
 						</form>	
 						
-						<form action="updateUser" method="post">
-							<input type="text" placeholder="First Name" name="userAction.firstName" value='<s:property value="userVo.firstName"/>'/>
-							<input type="text" placeholder="Last Name" name="userAction.lastName" value='<s:property value="userVo.lastName"/>'/>
-							<input type="text" placeholder="Email" name="userAction.emailId" value='<s:property value="userVo.emailId"/>'/>
-							<input type="text" placeholder="Mobile No" name="userAction.mobileNumber" value='<s:property value="userVo.mobileNumber"/>'/>
+						<form action="updateUser" method="post" name="update-form" id="update-form">
+							<input type="text" placeholder="First Name" name="userAction.firstName" id="ufirstName" value='<s:property value="userVo.firstName"/>'/>
+							<input type="text" placeholder="Last Name" name="userAction.lastName" id="ulastName" value='<s:property value="userVo.lastName"/>'/>
+							<input type="text" placeholder="Email" name="userAction.emailId" id="uemail" value='<s:property value="userVo.emailId"/>'/>
+							<input type="text" placeholder="Mobile No" name="userAction.mobileNumber" id="umobile" value='<s:property value="userVo.mobileNumber"/>'/>
 							<input type="hidden" name="userAction.userId" value='<s:property value="userVo.userId"/>'/>
 							<button type="submit" class="btn btn-default">Update User</button>
 						</form>	
@@ -229,8 +229,8 @@
 	<script src="js/jquery.scrollUp.min.js"></script>
 	<script src="js/price-range.js"></script>
     <script src="js/jquery.prettyPhoto.js"></script>
-    <script src="js/main.js"></script>
-     <!-- Page-Level Plugin Scripts - Tables -->
+    <%-- <script src="js/main.js"></script> --%>
+    <!-- Page-Level Plugin Scripts - Tables -->
     <script src="js/dataTables/jquery.dataTables.js"></script>
     <script src="js/dataTables/dataTables.bootstrap.js"></script>
      <!-- Page-Level Demo Scripts - Tables - Use for reference -->
@@ -239,6 +239,88 @@
         $('#dataTables-example').dataTable();
     });
     </script>
+      <%-- <script src="js/main.js"></script> --%>
+     <!-- jQuery 2.1.4 -->
+    <script src='<s:url value="jQuery/jQuery-2.1.4.min.js"/>'></script>
+    <script src='<s:url value="jQuery/jquery.validate.min.js"/>'></script>
+    <script type="text/javascript">
+    $(function() {
+  	  
+	    $("#register-form").validate({
+	    	submitHandler: function(form) {
+	            form.submit();
+	        }
+	    });
+	    $('#firstName').rules("add",
+	    		{
+	    		    required: true,
+	    		    messages: { required: 'First name is required.' }
+	    		});
+	    $('#lastName').rules("add",
+	    		{
+	    		    required: true,
+	    		    messages: { required: 'Last name is required.' }
+	    		});
+	    $('#email').rules("add",
+	    		{
+	    		    required: true,
+	    		    email: true,
+	    		    messages: { required: 'Please enter a valid email address' }
+	    		});
+	    $('#mobile').rules("add",
+	    		{
+	    		    required: true,
+	    		    minlength:10,
+	    		    maxlength:10,
+	    		    number: true,
+	    		    messages: { required: 'Please enter valid mobile number',number:'Number only',maxlength:'10 digit mobile number'}
+	    		});
+	    $('#password').rules("add",
+	    		{
+	    		    required: true,
+	    		    minlength: 5,
+	    		    messages: 
+	    		    { required: 'Please enter password',
+	    		    	minlength: 'Your password must be at least 5 characters long'
+	    		    	}
+	    		});
+	});
     
+    $(function() {
+    	  
+	    $("#update-form").validate({
+	    	submitHandler: function(form) {
+	            form.submit();
+	        }
+	    });
+	    $('#ufirstName').rules("add",
+	    		{
+	    		    required: true,
+	    		    messages: { required: 'First name is required.' }
+	    		});
+	    $('#ulastName').rules("add",
+	    		{
+	    		    required: true,
+	    		    messages: { required: 'Last name is required.' }
+	    		});
+	    $('#uemail').rules("add",
+	    		{
+	    		    required: true,
+	    		    email: true,
+	    		    messages: { required: 'Please enter a valid email address' }
+	    		});
+	    $('#umobile').rules("add",
+	    		{
+	    		    required: true,
+	    		    minlength:10,
+	    		    maxlength:10,
+	    		    number: true,
+	    		    messages: { required: 'Please enter valid mobile number',number:'Number only',maxlength:'10 digit mobile number'}
+	    		});
+	    
+	});
+    
+    
+    </script>
 </body>
 </html>
