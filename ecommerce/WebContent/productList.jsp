@@ -80,7 +80,7 @@
 		<div class="container">
 			<div class="login-form">
 				<!--login form-->
-				<form action="addProduct" method="post" enctype="multipart/form-data">
+				<form action="addProduct" method="post" enctype="multipart/form-data" name="product-form" id="product-form">
 
 					<div class="row">
 
@@ -90,20 +90,20 @@
 
 							<div class="col-sm-4">
 								<input type="text" placeholder="Product Name"
-									name="productActions.productName" />
+									name="productActions.productName" id="productName"/>
 							</div>
 							<div class="col-sm-4">
 								<input type="text" placeholder="Product Brannd"
-									name="productActions.productBrand" />
+									name="productActions.productBrand" id="productBrand"/>
 							</div>
 							<div class="col-sm-4">
 								<input type="text" placeholder="Product Quantity"
-									name="productActions.productQuantity" />
+									name="productActions.productQuantity" id="productQuantity"/>
 							</div>
 
 							<div class="col-sm-4">
 								<input type="text" placeholder="Product Price"
-									name="productActions.productPrice">
+									name="productActions.productPrice" id="productPrice">
 							</div>
 
 						</div>
@@ -113,10 +113,10 @@
 						<div class="col-sm-12">
 							<div class="col-sm-6">
 								<textarea rows="5" cols="3" placeholder="Product Details"
-									name="productActions.productDetails"></textarea>
+									name="productActions.productDetails" id="productDetails"></textarea>
 							</div>
 							<div class="col-sm-3 ">
-							<s:file name="userImage" label="Image" class="btn btn-default"/> 
+							<s:file name="userImage" label="Image" class="btn btn-default" id="userImage"/> 
 							</div>
 							<div class="col-sm-3 ">
 								<button type="submit" class="btn btn-default">Add
@@ -180,7 +180,7 @@
 
 				<div class="login-form">
 					<!--login form-->
-					<form action="updateProduct" method="post">
+					<form action="updateProduct" method="post" name="updateproduct-form" id="updateproduct-form">
 
 						<div class="row">
 
@@ -188,24 +188,24 @@
 								<div class="col-sm-4">
 									<input type="text" placeholder="Product Name"
 										name="productActions.productName"
-										value='<s:property value="productVo.productName"/>' />
+										value='<s:property value="productVo.productName"/>' id="uproductName"/>
 								</div>
 								<div class="col-sm-4">
 									<input type="text" placeholder="Product Brannd"
 										name="productActions.productBrand"
-										value='<s:property value="productVo.productBrand"/>' />
+										value='<s:property value="productVo.productBrand"/>' id="uproductBrand"/>
 								</div>
 
 								<div class="col-sm-4">
 									<input type="text" placeholder="Product Quantity"
 										name="productActions.productQuantity"
-										value='<s:property value="productVo.productQuantity"/>' />
+										value='<s:property value="productVo.productQuantity"/>' id="uproductQuantity"/>
 								</div>
 
 								<div class="col-sm-4">
 									<input type="text" placeholder="Product Price"
 										name="productActions.productPrice"
-										value='<s:property value="productVo.productPrice"/>' />
+										value='<s:property value="productVo.productPrice"/>' id="uproductPrice">
 								</div>
 
 							</div>
@@ -215,9 +215,9 @@
 							<div class="col-sm-12">
 								<div class="col-sm-6">
 									<input type="hidden" name="productActions.productId"
-										value='<s:property value="productVo.productId"/>' />
+										value='<s:property value="productVo.productId"/>' > 
 									<textarea rows="5" cols="3"
-										name="productActions.productDetails"><s:property
+										name="productActions.productDetails" id="uproductDetails"><s:property
 											value="productVo.productDetails" /></textarea>
 								</div>
 								<div class="col-sm-4 ">
@@ -291,8 +291,6 @@
 	<script src="js/jquery.scrollUp.min.js"></script>
 	<script src="js/price-range.js"></script>
 	<script src="js/jquery.prettyPhoto.js"></script>
-	<script src="js/main.js"></script>
-	<!-- Page-Level Plugin Scripts - Tables -->
 	<script src="js/dataTables/jquery.dataTables.js"></script>
 	<script src="js/dataTables/dataTables.bootstrap.js"></script>
 	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
@@ -301,6 +299,97 @@
         $('#dataTables-example').dataTable();
     });
     </script>
-
+    <script src='<s:url value="jQuery/jQuery-2.1.4.min.js"/>'></script>
+    <script src='<s:url value="jQuery/jquery.validate.min.js"/>'></script>
+<script type="text/javascript">
+    $(function() {
+  	  
+	    $("#product-form").validate({
+	    	submitHandler: function(form) {
+	            form.submit();
+	        }
+	    });
+	    $('#productName').rules("add",
+	    		{
+	    		    required: true,
+	    		    messages: { required: 'Product name is required.' }
+	    		});
+	    $('#productBrand').rules("add",
+	    		{
+	    		    required: true,
+	    		    messages: { required: 'Product Brand is required.' }
+	    		});
+	    $('#productQuantity').rules("add",
+	    		{
+	    		    required: true,
+	    		    minlength:0,
+	    		    maxlength:5,
+	    		    number: true,
+	    		    messages: { required: 'Please enter valid price',number:'Number only',maxlength:'5 digit Quantity '}
+	    		});
+	    $('#productPrice').rules("add",
+	    		{
+	    		    required: true,
+	    		    minlength:0,
+	    		    maxlength:10,
+	    		    number: true,
+	    		    messages: { required: 'Please enter valid price',number:'Number only',maxlength:'10 digit amount'}
+	    		});
+	    $('#productDetails').rules("add",
+	       		{
+	       		    required: true,
+	       		    messages: { required: 'Please enter product details'}
+	       		});
+	    $('#userImage').rules("add",
+	       		{
+	    			required: true,
+	        		accept: "image/jpeg, image/pjpeg, image/png",
+	       		    messages: { required: 'Please select aleast one image file',accept:'Image file only'}
+	       		});
+	});
+    
+    $(function() {
+    	  
+	    $("#updateproduct-form").validate({
+	    	submitHandler: function(form) {
+	            form.submit();
+	        }
+	    });
+	    $('#uproductName').rules("add",
+	    		{
+	    		    required: true,
+	    		    messages: { required: 'Product name is required.' }
+	    		});
+	    $('#uproductBrand').rules("add",
+	    		{
+	    		    required: true,
+	    		    messages: { required: 'Product Brand is required.' }
+	    		});
+	    $('#uproductQuantity').rules("add",
+	    		{
+	    		    required: true,
+	    		    minlength:0,
+	    		    maxlength:5,
+	    		    number: true,
+	    		    messages: { required: 'Please enter valid price',number:'Number only',maxlength:'5 digit Quantity '}
+	    		});
+	    $('#uproductPrice').rules("add",
+	    		{
+	    		    required: true,
+	    		    minlength:0,
+	    		    maxlength:10,
+	    		    number: true,
+	    		    messages: { required: 'Please enter valid price',number:'Number only',maxlength:'10 digit amount'}
+	    		});
+	    $('#uproductDetails').rules("add",
+	       		{
+	       		    required: true,
+	       		    messages: { required: 'Please enter product details'}
+	       		});
+	    
+	});
+    
+    
+    </script>
 </body>
 </html>
