@@ -26,9 +26,18 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <script type="text/javascript">
+//div with a specific ID
+function div(){
+var userId=document.getElementById("uuserId").value;
+if(userId==null||userId==''||userId==0){
+	document.getElementById("updateDiv").style.display='none';
+}
+}
+</script>
 </head><!--/head-->
 
-<body>
+<body onload="div();">
 	<header id="header"><!--header-->
 		<div class="header-middle"><!--header-middle-->
 			<div class="container">
@@ -57,27 +66,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-9">
-						<!-- <div class="navbar-header">
-							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-								<span class="sr-only">Toggle navigation</span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-							</button>
-						</div> -->
 						<div class="mainmenu pull-left">
-							<!-- <ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="homePage?useraction=Home">Home</a></li>
-								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.jsp">Products</a></li>
-										<li><a href="checkout.jsp">Checkout</a></li> 
-										<li><a href="cart.jsp">Cart</a></li> 
-										<li><a href="login.jsp" class="active">Login</a></li> 
-                                    </ul>
-                                </li> 
-								<li><a href="contact-us.jsp">Contact</a></li>
-							</ul> -->
 						</div>
 					</div>
 					
@@ -101,7 +90,7 @@
 							<input type="hidden" name="userAction.userRole" value="user">
 							<button type="submit" class="btn btn-default">Add User</button>
 						</form>	
-						
+						<%-- 
 						<form action="updateUser" method="post" name="update-form" id="update-form">
 							<input type="text" placeholder="First Name" name="userAction.firstName" id="ufirstName" value='<s:property value="userVo.firstName"/>'/>
 							<input type="text" placeholder="Last Name" name="userAction.lastName" id="ulastName" value='<s:property value="userVo.lastName"/>'/>
@@ -110,7 +99,7 @@
 							<input type="hidden" name="userAction.userId" value='<s:property value="userVo.userId"/>'/>
 							<button type="submit" class="btn btn-default">Update User</button>
 						</form>	
-					
+					 --%>
 					</div><!--/login form-->
 				</div>
 				<!-- <div class="col-sm-1">
@@ -162,6 +151,45 @@
             </div>
             <!-- /.row -->
 				
+				<div class="row" id="updateDiv" style="display:block">
+
+				<div class="login-form">
+					<!--login form-->
+					<form action="updateUser" method="post" name="update-form" id="update-form">
+
+						<div class="row">
+
+							<div class="col-sm-12">
+								<div class="col-sm-3">
+									<input type="text" placeholder="First Name" name="userAction.firstName" id="ufirstName" value='<s:property value="userVo.firstName"/>'/>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" placeholder="Last Name" name="userAction.lastName" id="ulastName" value='<s:property value="userVo.lastName"/>'/>
+								</div>
+
+								<div class="col-sm-3">
+									<input type="text" placeholder="Email" name="userAction.emailId" id="uemail" value='<s:property value="userVo.emailId"/>'/>
+								</div>
+
+								<div class="col-sm-3">
+									<input type="text" placeholder="Mobile No" name="userAction.mobileNumber" id="umobile" value='<s:property value="userVo.mobileNumber"/>'/>
+							<input type="hidden" name="userAction.userId" id="uuserId" value='<s:property value="userVo.userId"/>'/>
+								</div>
+
+							</div>
+
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="col-sm-4 ">
+									<button type="submit" class="btn btn-default">Update User</button>
+								</div>
+								<div class="col-sm-4 "></div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
 				
 				
 				

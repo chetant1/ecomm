@@ -32,8 +32,16 @@
 	href="images/ico/apple-touch-icon-57-precomposed.png">
 </head>
 <!--/head-->
-
-<body>
+<script type="text/javascript">
+//div with a specific ID
+function div(){
+var productId=document.getElementById("uproductId").value;
+if(productId==null||productId==''||productId==0){
+	document.getElementById("updateDiv").style.display='none';
+}
+}
+</script>
+<body onload="div();">
 	<header id="header">
 		<!--header-->
 		<div class="header-middle">
@@ -176,7 +184,7 @@
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
-			<div class="row">
+			<div class="row" id="updateDiv" style="display:block">
 
 				<div class="login-form">
 					<!--login form-->
@@ -185,24 +193,24 @@
 						<div class="row">
 
 							<div class="col-sm-12">
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<input type="text" placeholder="Product Name"
 										name="productActions.productName"
 										value='<s:property value="productVo.productName"/>' id="uproductName"/>
 								</div>
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<input type="text" placeholder="Product Brannd"
 										name="productActions.productBrand"
 										value='<s:property value="productVo.productBrand"/>' id="uproductBrand"/>
 								</div>
 
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<input type="text" placeholder="Product Quantity"
 										name="productActions.productQuantity"
 										value='<s:property value="productVo.productQuantity"/>' id="uproductQuantity"/>
 								</div>
 
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<input type="text" placeholder="Product Price"
 										name="productActions.productPrice"
 										value='<s:property value="productVo.productPrice"/>' id="uproductPrice">
@@ -214,7 +222,7 @@
 						<div class="row">
 							<div class="col-sm-12">
 								<div class="col-sm-6">
-									<input type="hidden" name="productActions.productId"
+									<input type="hidden" name="productActions.productId" id="uproductId"
 										value='<s:property value="productVo.productId"/>' > 
 									<textarea rows="5" cols="3"
 										name="productActions.productDetails" id="uproductDetails"><s:property
@@ -325,7 +333,7 @@
 	    		    minlength:0,
 	    		    maxlength:5,
 	    		    number: true,
-	    		    messages: { required: 'Please enter valid price',number:'Number only',maxlength:'5 digit Quantity '}
+	    		    messages: { required: 'Please enter productQuantity',number:'Number only',maxlength:'5 digit Quantity '}
 	    		});
 	    $('#productPrice').rules("add",
 	    		{
@@ -371,7 +379,7 @@
 	    		    minlength:0,
 	    		    maxlength:5,
 	    		    number: true,
-	    		    messages: { required: 'Please enter valid price',number:'Number only',maxlength:'5 digit Quantity '}
+	    		    messages: { required: 'Please enter productQuantity',number:'Number only',maxlength:'5 digit Quantity '}
 	    		});
 	    $('#uproductPrice').rules("add",
 	    		{
@@ -388,7 +396,6 @@
 	       		});
 	    
 	});
-    
     
     </script>
 </body>
