@@ -351,7 +351,7 @@ if(productId==null||productId==''||productId==0){
 	    $('#userImage').rules("add",
 	       		{
 	    			required: true,
-	        		accept: "image/jpeg, image/pjpeg, image/png",
+	        		//accept: "image/jpeg, image/jpg, image/png,image/PNG",
 	       		    messages: { required: 'Please select aleast one image file',accept:'Image file only'}
 	       		});
 	});
