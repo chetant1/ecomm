@@ -82,6 +82,12 @@
 						<a href="getUserActivity" style="font-size:20px">Click to View UserActivity</a>
 					</div>
 				</div>
+				<div class="col-sm-3">
+					<div class="signup-form">
+						
+						<a href="manageImages" style="font-size:20px">Manage Product Images</a>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section><!--/form-->

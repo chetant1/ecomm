@@ -269,7 +269,7 @@ if(userId==null||userId==''||userId==0){
     </script>
       <%-- <script src="js/main.js"></script> --%>
      <!-- jQuery 2.1.4 -->
-    <script src='<s:url value="jQuery/jQuery-2.1.4.min.js"/>'></script>
+    <%-- <script src='<s:url value="jQuery/jQuery-2.1.4.min.js"/>'></script> --%>
     <script src='<s:url value="jQuery/jquery.validate.min.js"/>'></script>
     <script type="text/javascript">
     $(function() {

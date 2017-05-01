@@ -26,4 +26,8 @@ public interface ProductDao {
 	public int deleteCartProduct(int cartProductID);
 
 	public List<UserActivityVo> getUserActivity();
+
+	public void updateImageProduct(ProductActions productActions);
+
+	public void updateImageProduct(String productDetailsImagepath, int productId);
 }

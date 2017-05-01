@@ -124,7 +124,7 @@ if(productId==null||productId==''||productId==0){
 									name="productActions.productDetails" id="productDetails"></textarea>
 							</div>
 							<div class="col-sm-3 ">
-							<s:file name="userImage" label="Image" class="btn btn-default" id="userImage"/> 
+							<s:file name="productDetailsmainImage" label="Image" class="btn btn-default" id="userImage"/> 
 							</div>
 							<div class="col-sm-3 ">
 								<button type="submit" class="btn btn-default">Add
@@ -164,11 +164,15 @@ if(productId==null||productId==''||productId==0){
 												<td><s:property value="productPrice" /></td>
 												<td><s:property value="isActive" /></td>
 												<td class="center"><a
-													href="deleteProduct?productId=<s:property value="productId"/>"><button
+													href="deleteProduct?productId=<s:property value="productId"/>" title="Delete Product"><button
 															type="button" class="btn btn-warning btn-circle">
 															<i class="fa fa-times"></i>
 														</button></a> &nbsp;&nbsp;<a
-													href="editProduct?productId=<s:property value="productId"/>"><button
+													href="editProduct?productId=<s:property value="productId"/>" title="Modify Product"><button
+															type="button" class="btn btn-warning btn-circle">
+															<i class="fa fa-edit fa-fw"></i>
+														</button></a> &nbsp;&nbsp;<a
+													href="manageImages?productId=<s:property value="productId"/>" title="Add Product Images"><button
 															type="button" class="btn btn-warning btn-circle">
 															<i class="fa fa-edit fa-fw"></i>
 														</button></a></td>
@@ -302,13 +306,14 @@ if(productId==null||productId==''||productId==0){
 	<script src="js/dataTables/jquery.dataTables.js"></script>
 	<script src="js/dataTables/dataTables.bootstrap.js"></script>
 	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
-	<script>
+
+    <%-- <script src="jQuery/jQuery-2.1.4.min.js"/></script> --%>
+    <script src="jQuery/jquery.validate.min.js"/></script>
+    	<script>
     $(document).ready(function() {
         $('#dataTables-example').dataTable();
     });
     </script>
-    <script src='<s:url value="jQuery/jQuery-2.1.4.min.js"/>'></script>
-    <script src='<s:url value="jQuery/jquery.validate.min.js"/>'></script>
 <script type="text/javascript">
     $(function() {
   	  

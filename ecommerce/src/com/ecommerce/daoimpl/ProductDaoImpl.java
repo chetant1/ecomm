@@ -28,7 +28,7 @@ public class ProductDaoImpl implements ProductDao {
 		connection = DatabaseConnection.getConnection();
 		try {
 			pstmt = connection
-					.prepareStatement("SELECT * FROM `ecomm`.`product_master` where IS_ACTIVE='Y'");
+					.prepareStatement("SELECT * FROM `ecomm`.`product_master` where IS_ACTIVE='Y' order by product_id desc");
 			resultSet = pstmt.executeQuery();
 			while (resultSet.next()) {
 				productVo = new ProductVo();
@@ -41,6 +41,8 @@ public class ProductDaoImpl implements ProductDao {
 				productVo.setIsActive(resultSet.getString("IS_ACTIVE"));
 				productVo.setProductDetails(resultSet
 						.getString("PRODUCT_DETAILS"));
+				productVo.setProductDetailsmainImageFileName(resultSet
+						.getString("PRODUCTDETAILSIMAGE_PATH"));
 				productList.add(productVo);
 			}
 
@@ -113,6 +115,21 @@ public class ProductDaoImpl implements ProductDao {
 				productVo.setIsActive(resultSet.getString("IS_ACTIVE"));
 				productVo.setProductDetails(resultSet
 						.getString("PRODUCT_DETAILS"));
+				productVo.setThumbnelImage1FileName(resultSet
+						.getString("THUMBNEL_IMAGE1_PATH"));
+				productVo.setThumbnelImage2FileName(resultSet
+						.getString("THUMBNEL_IMAGE2_PATH"));
+				productVo.setThumbnelImage3FileName(resultSet
+						.getString("THUMBNEL_IMAGE3_PATH"));
+				productVo.setLargerImage1FileName(resultSet
+						.getString("LARGE_IMAGE1_PATH"));
+				productVo.setLargerImage2FileName(resultSet
+						.getString("LARGE_IMAGE2_PATH"));
+				productVo.setLargerImage3FileName(resultSet
+						.getString("LARGE_IMAGE3_PATH"));
+				productVo.setProductDetailsmainImageFileName(resultSet
+						.getString("PRODUCTDETAILSIMAGE_PATH"));
+
 			}
 
 		} catch (Exception exception) {
@@ -262,4 +279,48 @@ public class ProductDaoImpl implements ProductDao {
 		return userActivitiList;
 
 	}
+
+	@Override
+	public void updateImageProduct(ProductActions productData) {
+		// TODO Auto-generated method stub
+		try {
+			System.out.println("in updateProduct daoImpl");
+			connection = DatabaseConnection.getConnection();
+			pstmt = connection
+					.prepareStatement("UPDATE `ecomm`.`product_master` SET `THUMBNEL_IMAGE1_PATH`=?, `THUMBNEL_IMAGE2_PATH`=?,"
+							+ " `THUMBNEL_IMAGE3_PATH`=?, `LARGE_IMAGE1_PATH`=?,`LARGE_IMAGE2_PATH`=?,`LARGE_IMAGE3_PATH`=? WHERE `PRODUCT_ID`=?");
+			pstmt.setString(1, productData.getThumbnelImage1FileName());
+			pstmt.setString(2, productData.getThumbnelImage2FileName());
+			pstmt.setString(3, productData.getThumbnelImage3FileName());
+			pstmt.setString(4, productData.getLargerImage1FileName());
+			pstmt.setString(5, productData.getLargerImage2FileName());
+			pstmt.setString(6, productData.getLargerImage3FileName());
+			pstmt.setInt(7, productData.getProductId());
+			pstmt.executeUpdate();
+			System.out.println("Out updateProduct daoImpl");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Failed to update status" + e);
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void updateImageProduct(String productDetailsImagepath, int productId) {
+		try {
+			System.out.println("in updateProduct daoImpl");
+			connection = DatabaseConnection.getConnection();
+			pstmt = connection
+					.prepareStatement("UPDATE `ecomm`.`product_master` SET `PRODUCTDETAILSIMAGE_PATH`=?  WHERE `PRODUCT_ID`=?");
+			pstmt.setString(1, productDetailsImagepath);
+			pstmt.setInt(2, productId);
+			pstmt.executeUpdate();
+			System.out.println("Out updateProduct daoImpl");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Failed to update status" + e);
+			e.printStackTrace();
+		}
+	}
+
 }

@@ -171,7 +171,7 @@ behavior: url(pie/PIE.htc);
 					<div class="product-details"><!--product-details-->
 						<div class="col-sm-3">
 							<div class="view-product">
-								<img src="images/product-details/1.jpg" alt="" />
+								<img src="<s:property value="productVo.productDetailsmainImageFileName"/>" alt="" />
 								
 							</div>
 							
@@ -202,9 +202,9 @@ behavior: url(pie/PIE.htc);
 						</div>
 						<div class="col-sm-3" style=" overflow: auto">
 								<ul class="enlarge">
-<li><img src="asset/image-enlarge01-sml.jpg" width="150px" height="100px" alt="Dechairs" class="img-responsive"/><span><img src="asset/one.png" alt="Deckchairs" /></span></li>
-<li><img src="asset/image-enlarge03-sml.jpg" width="150px" height="100px" alt="Blackpool pier" class="img-responsive"/><span><img src="asset/two.png" alt="Blackpool pier" /><br /></span></li>
-<li><img src="asset/image-enlarge03-sml.jpg" width="150px" height="100px" alt="Blackpool pier" class="img-responsive"/><span><img src="asset/two.png" alt="Blackpool pier" /><br /></span></li>
+<li><img src="<s:property value="productVo.thumbnelImage1FileName"/>" width="150px" height="100px" alt="Dechairs" class="img-responsive"/><span><img src="<s:property value="productVo.largerImage1FileName"/>" alt="Deckchairs" /></span></li>
+<li><img src="<s:property value="productVo.thumbnelImage2FileName"/>" width="150px" height="100px" alt="Blackpool pier" class="img-responsive"/><span><img src="<s:property value="productVo.largerImage1FileName"/>" alt="Blackpool pier" /><br /></span></li>
+<li><img src="<s:property value="productVo.thumbnelImage3FileName"/>" width="150px" height="100px" alt="Blackpool pier" class="img-responsive"/><span><img src="<s:property value="productVolargerImage1FileName."/>g" alt="Blackpool pier" /><br /></span></li>
 </ul>
 						</div>
 					</div><!--/product-details-->

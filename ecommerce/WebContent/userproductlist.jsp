@@ -94,7 +94,7 @@
 									<div class="product-image-wrapper">
 										<div class="single-products">
 											<div class="productinfo text-center">
-												<img src="images/home/gallery1.jpg" alt="" />
+												<img src="<s:property value="productDetailsmainImageFileName"/>" alt="" />
 												<h2><s:property value="productName"/></h2>
 												<h2>$<s:property value="productPrice"/></h2>
 												<p><s:property value="productQuantity"/></p>

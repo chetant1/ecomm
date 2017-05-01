@@ -156,6 +156,18 @@
 			<result name="success">/userProfile.jsp</result>
 			<result name="input">/?msg=error</result>
 		</action>
+		<action name="manageImages" class="com.ecommerce.actions.ProductActions"
+			method="editProduct">
+			<interceptor-ref name="checkLogin"/>
+			<result name="success">/productimage.jsp</result>
+			<result name="input">/?msg=error</result>
+		</action>
+		<action name="addProductImage" class="com.ecommerce.actions.ProductActions"
+			method="addProductImage">
+			<interceptor-ref name="checkLogin"/>
+			<result name="success">/productList.jsp</result>
+			<result name="input">/?msg=error</result>
+		</action>
 	</package>
 
 </struts>

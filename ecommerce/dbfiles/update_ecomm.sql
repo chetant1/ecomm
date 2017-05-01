@@ -8,6 +8,8 @@ USE `ecomm` ;
 -- -----------------------------------------------------
 -- Table `ecomm`.`USERMASTER`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `ecomm`.`USERMASTER` ;
+
 CREATE  TABLE IF NOT EXISTS `ecomm`.`USERMASTER` (
   `USER_ID` INT NOT NULL AUTO_INCREMENT ,
   `USERNAME` VARCHAR(45) NULL ,
@@ -29,6 +31,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `ecomm`.`ROLEMASTER`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `ecomm`.`ROLEMASTER` ;
+
 CREATE  TABLE IF NOT EXISTS `ecomm`.`ROLEMASTER` (
   `ROLE_ID` INT NOT NULL AUTO_INCREMENT ,
   `ROLE_NAME` VARCHAR(45) NULL ,
@@ -44,18 +48,27 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `ecomm`.`PRODUCT_MASTER`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `ecomm`.`PRODUCT_MASTER` ;
+
 CREATE  TABLE IF NOT EXISTS `ecomm`.`PRODUCT_MASTER` (
   `PRODUCT_ID` INT NOT NULL AUTO_INCREMENT ,
   `PRODUCT_NAME` VARCHAR(45) NULL ,
   `PRODUCT_BRAND` VARCHAR(45) NULL ,
   `PRODUCT_QUANTITY` VARCHAR(45) NULL ,
   `PRODUCT_PRICE` VARCHAR(45) NULL ,
+  `PRODUCT_DETAILS` TEXT NULL ,
   `CREATED_DATE` VARCHAR(45) NULL ,
   `CREATED_TIME` VARCHAR(45) NULL ,
   `CHANGED_DATE` VARCHAR(45) NULL ,
   `CHANGE_TIME` VARCHAR(45) NULL ,
+  `THUMBNEL_IMAGE1_PATH` VARCHAR(100) NULL ,
+  `THUMBNEL_IMAGE2_PATH` VARCHAR(100) NULL ,
+  `THUMBNEL_IMAGE3_PATH` VARCHAR(100) NULL ,
+  `LARGE_IMAGE1_PATH` VARCHAR(100) NULL ,
+  `LARGE_IMAGE2_PATH` VARCHAR(100) NULL ,
+  `LARGE_IMAGE3_PATH` VARCHAR(100) NULL ,
+  `PRODUCTDETAILSIMAGE_PATH` VARCHAR(100) NULL ,
   `IS_ACTIVE` VARCHAR(45) NULL ,
-  `PRODUCT_DETAILS` BLOB NULL ,
   PRIMARY KEY (`PRODUCT_ID`) )
 ENGINE = InnoDB;
 
@@ -63,6 +76,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `ecomm`.`USERPRODUCTDETAILS`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `ecomm`.`USERPRODUCTDETAILS` ;
+
 CREATE  TABLE IF NOT EXISTS `ecomm`.`USERPRODUCTDETAILS` (
   `USER_PRODUCT_ID` INT NOT NULL AUTO_INCREMENT ,
   `USER_ID` INT NULL ,
@@ -82,6 +97,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `ecomm`.`USER_ACTIVITY`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `ecomm`.`USER_ACTIVITY` ;
+
 CREATE  TABLE IF NOT EXISTS `ecomm`.`USER_ACTIVITY` (
   `USER_TRACK_ID` INT NOT NULL AUTO_INCREMENT ,
   `USER_ID` INT NULL ,

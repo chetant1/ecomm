@@ -67,4 +67,17 @@ public class ProductBoImpl implements ProductBo {
 		return dao.getUserActivity();
 	}
 
+	@Override
+	public void updateImageProduct(ProductActions productActions) {
+		ProductDao dao = new ProductDaoImpl();
+		dao.updateImageProduct(productActions);
+	}
+
+	@Override
+	public void updateImageProduct(String productDetailsImagepath, int productId) {
+		ProductDao dao = new ProductDaoImpl();
+		dao.updateImageProduct(productDetailsImagepath, productId);
+
+	}
+
 }
