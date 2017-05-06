@@ -80,4 +80,16 @@ public class ProductBoImpl implements ProductBo {
 
 	}
 
+	@Override
+	public int deleteCheckOutProduct(int userProductId) {
+		ProductDao dao = new ProductDaoImpl();
+		return dao.deleteCheckOutProduct(userProductId);
+	}
+
+	@Override
+	public List<ProductVo> getAllProduct(String sortParameter) {
+		ProductDao dao = new ProductDaoImpl();
+		return dao.getAllProduct(sortParameter);
+	}
+
 }

@@ -10,6 +10,7 @@ public class ProductVo {
 	private String productBrand;
 	private String productQuantity;
 	private String productPrice;
+	private String productType;
 	private ProductActions productActions;
 	List<ProductActions> productList;
 	private String isActive;
@@ -256,10 +257,26 @@ public class ProductVo {
 	}
 
 	/**
-	 * @param productDetailsmainImageFileName the productDetailsmainImageFileName to set
+	 * @param productDetailsmainImageFileName
+	 *            the productDetailsmainImageFileName to set
 	 */
 	public void setProductDetailsmainImageFileName(
 			String productDetailsmainImageFileName) {
 		this.productDetailsmainImageFileName = productDetailsmainImageFileName;
+	}
+
+	/**
+	 * @return the productType
+	 */
+	public String getProductType() {
+		return productType;
+	}
+
+	/**
+	 * @param productType
+	 *            the productType to set
+	 */
+	public void setProductType(String productType) {
+		this.productType = productType;
 	}
 }

@@ -135,19 +135,17 @@
 	</section> <!--/#cart_items-->
 
 	<section id="do_action">
-		<div class="container">
+		<div class="container" align="center">
 			
 			<div class="row">
 				
-				<div class="col-sm-6">
-					<div class="total_area">
-						<ul>
+				<div class="col-sm-12">
+						<%-- <ul>
 							<li>Cart Sub Total <span>$59</span></li>
 							<li>Shipping Cost <span>Free</span></li>
 							<li>Total <span>$61</span></li>
-						</ul>
-							<a class="btn btn-default check_out" href="checkOutProduct?useraction=Check Out">Check Out</a>
-					</div>
+						</ul> --%>
+							<a class="btn btn-default check_out" href="checkOutProduct?useraction=Check Out&userProductId=<%=session.getAttribute("userid") %>">Check Out</a>
 				</div>
 			</div>
 		</div>

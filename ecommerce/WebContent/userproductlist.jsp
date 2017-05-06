@@ -87,8 +87,24 @@
 	
 	<section id="slider"><!--slider-->
 		<div class="container">
+		<div class="row">
+		<div class="col-sm-12" style="margin-left: 1.5%">  
+		 <div class="btn-group" role="group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+       <span class="glyphicon glyphicon-filter"></span> Product By 
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a href="productorder?sortby=productbyhightolowprice&useraction=Sort Product by price HtoL">price high to low</a></li>
+      <li><a href="productorder?sortby=productbylowtohighprice&useraction=Sort Product by priceLtoH">price low to high</a></li>
+      <li><a href="productorder?sortby=productbyname&useraction=Sort Product by Name">Name</a></li>
+      <li><a href="productorder?sortby=productbytype&useraction=Sort Product by Type">Type</a></li>
+    </ul>
+  </div></div> 
+		</div><br/>
 			<div class="row">
 				<div class="col-sm-12">
+				
                     <s:iterator value="productActions.productList">
                     <div class="col-sm-3">
 									<div class="product-image-wrapper">
@@ -98,7 +114,7 @@
 												<h2><s:property value="productName"/></h2>
 												<h2>$<s:property value="productPrice"/></h2>
 												<p><s:property value="productQuantity"/></p>
-												<a href="getUserProductDetails?useraction=Product Details&productId=<s:property value="productId"/>" class="btn btn-default add-to-cart">Product Details</a>
+												<a href="getUserProductDetails?useraction=Product Details_<s:property value="productName"/>&productId=<s:property value="productId"/>" class="btn btn-default add-to-cart">Product Details</a>
 											</div>
 										</div>
 									</div>

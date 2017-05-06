@@ -10,7 +10,9 @@ import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.ecommerce.bo.ProductBo;
+import com.ecommerce.bo.UserBO;
 import com.ecommerce.boimpl.ProductBoImpl;
+import com.ecommerce.boimpl.UserBoImpl;
 import com.ecommerce.vo.UserProductVo;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -218,6 +220,16 @@ public class UserProductActions extends ActionSupport implements SessionAware {
 	}
 
 	public String checkOutProduct() {
+		ProductBo productBo = new ProductBoImpl();
+		productBo.deleteCheckOutProduct(Integer.parseInt((request
+				.getParameter("userProductId")).toString()));
+		return "success";
+	}
+
+	public String purchasedLogout() {
+		UserBO userBO = new UserBoImpl();
+		userBO.deleteUser(Integer.parseInt((sessionMap.get("userid"))
+				.toString()));
 		return "success";
 	}
 }

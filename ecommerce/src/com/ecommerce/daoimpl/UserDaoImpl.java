@@ -13,12 +13,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import javax.mail.MessagingException;
-
 import com.ecommerce.actions.UserAction;
 import com.ecommerce.dao.UserDao;
 import com.ecommerce.database.DatabaseConnection;
-import com.ecommerce.utility.EmailUtil;
 import com.ecommerce.vo.UserVo;
 
 public class UserDaoImpl implements UserDao {
@@ -32,70 +29,85 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public int registeruser(UserAction user) {
 		int iuserCreated = 0;
-		connection = DatabaseConnection.getConnection();
-		String sqlQuery = "INSERT INTO `ecomm`.`usermaster` (`FIRSTNAME`,`PASSWORD`,`EMAIL`, `IS_ACTIVE`,`USERROLE`) VALUES (?,?,?,?,?)";
-		try {
-			pstmt = connection.prepareStatement(sqlQuery);
-			pstmt.setString(1, user.getFirstName());
-			pstmt.setString(2, user.getPassword());
-			pstmt.setString(3, user.getEmailId());
-			pstmt.setString(4, "Y");
-			pstmt.setString(5, user.getUserRole());
-			iuserCreated = pstmt.executeUpdate();
-			if (iuserCreated == 1) {
-				sendEmailToUser(user, user.getPassword());
-			}
-			System.out.println("Registration Successfull" + iuserCreated);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if (null != connection) {
+		if (checkUsername(user.getUsername())) {
+
+		} else {
+
+			connection = DatabaseConnection.getConnection();
+			String sqlQuery = "INSERT INTO `ecomm`.`usermaster` (`FIRSTNAME`,`PASSWORD`,`EMAIL`, `IS_ACTIVE`,`USERROLE`,`USERNAME`,`LASTNAME`) VALUES (?,?,?,?,?,?,?)";
 			try {
-				connection.close();
+				pstmt = connection.prepareStatement(sqlQuery);
+				pstmt.setString(1, user.getFirstName());
+				pstmt.setString(2, user.getPassword());
+				pstmt.setString(3, user.getEmailId());
+				pstmt.setString(4, "N");
+				pstmt.setString(5, user.getUserRole());
+				pstmt.setString(6, user.getUsername());
+				pstmt.setString(7, user.getLastName());
+
+				iuserCreated = pstmt.executeUpdate();
+				if (iuserCreated == 1) {
+					// sendEmailToUser(user, user.getPassword());
+				}
+				System.out.println("Registration Successfull" + iuserCreated);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}
+			if (null != connection) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 		return iuserCreated;
 	}
 
-	private void sendEmailToUser(UserAction user, String origPassword)
-			throws MessagingException {
-		String emailText = "";
-		StringBuilder sbEmailText = new StringBuilder();
-		sbEmailText
-				.append("Dear ")
-				.append(user.getFirstName())
-				.append(",")
-				.append("<br/><br/>")
-				.append("Thank you for the registration!")
-				.append("<br/><br/>")
-				.append("Please find login details below.")
-				.append("<br/><br/>")
-				.append("Username : <b>")
-				.append(user.getEmailId())
-				.append("</b><br/>")
-				.append("Password : <b>")
-				.append(origPassword)
-				.append("</b><br/><br/>")
-				.append("<b><a href=\"http://localhost:8080/ecommerce/login.jsp\">Click Here</a></b> to log in.")
-				.append("<br/><br/>").append("Regards").append("<br/>")
-				.append("Team Ecommerce");
-		emailText = sbEmailText.toString();
-		EmailUtil.sendMail(user.getEmailId(), emailText);
+	private boolean checkUsername(String username) {
+		try {
+			connection = DatabaseConnection.getConnection();
+			System.out.println("connect");
+			pstmt = connection
+					.prepareStatement("SELECT USERNAME FROM ecomm.usermaster WHERE USERNAME=?");
+			pstmt.setString(1, username);
+			resultSet = pstmt.executeQuery();
+			if (resultSet.next()) {
+				System.out.println("Username exists");
+				return true;
+			} else
+				return false;
+		} catch (Exception e) {
+			System.out.println("Error in checking username" + e);
+		}
+
+		return false;
 	}
+
+	/*
+	 * private void sendEmailToUser(UserAction user, String origPassword) throws
+	 * MessagingException { String emailText = ""; StringBuilder sbEmailText =
+	 * new StringBuilder(); sbEmailText .append("Dear ")
+	 * .append(user.getFirstName()) .append(",") .append("<br/><br/>")
+	 * .append("Thank you for the registration!") .append("<br/><br/>")
+	 * .append("Please find login details below.") .append("<br/><br/>")
+	 * .append("Username : <b>") .append(user.getEmailId()) .append("</b><br/>")
+	 * .append("Password : <b>") .append(origPassword) .append("</b><br/><br/>")
+	 * .append(
+	 * "<b><a href=\"http://localhost:8080/ecommerce/login.jsp\">Click Here</a></b> to log in."
+	 * ) .append("<br/><br/>").append("Regards").append("<br/>")
+	 * .append("Team Ecommerce"); emailText = sbEmailText.toString();
+	 * EmailUtil.sendMail(user.getEmailId(), emailText); }
+	 */
 
 	@Override
 	public UserVo authenticate(UserAction userAction) {
 		UserVo userVo = null;
 		connection = DatabaseConnection.getConnection();
 
-		String sqlQuery = "select * from ecomm.usermaster where firstname=? and password=?";
+		String sqlQuery = "select * from ecomm.usermaster where firstname=? and password=? and IS_ACTIVE='Y'";
 		try {
 			pstmt = connection.prepareStatement(sqlQuery);
 			pstmt.setString(1, userAction.getFirstName());
@@ -128,7 +140,7 @@ public class UserDaoImpl implements UserDao {
 		connection = DatabaseConnection.getConnection();
 		try {
 			pstmt = connection
-					.prepareStatement("SELECT * FROM ecomm.usermaster where IS_ACTIVE='Y'");
+					.prepareStatement("SELECT * FROM ecomm.usermaster");
 			resultSet = pstmt.executeQuery();
 			while (resultSet.next()) {
 				userVo = new UserVo();
@@ -219,7 +231,7 @@ public class UserDaoImpl implements UserDao {
 		connection = DatabaseConnection.getConnection();
 		try {
 			pstmt = connection
-					.prepareStatement("SELECT * FROM `ecomm`.`usermaster` where IS_ACTIVE='Y' and user_id="
+					.prepareStatement("SELECT * FROM `ecomm`.`usermaster` where user_id="
 							+ userId);
 			resultSet = pstmt.executeQuery();
 			while (resultSet.next()) {
@@ -247,12 +259,13 @@ public class UserDaoImpl implements UserDao {
 			System.out.println("in updateUser daoImpl");
 			connection = DatabaseConnection.getConnection();
 			pstmt = connection
-					.prepareStatement("UPDATE `ecomm`.`usermaster` SET `FIRSTNAME`=?, `LASTNAME`=?, `MOBILENO`=?, `EMAIL`=? WHERE `USER_ID`="
+					.prepareStatement("UPDATE `ecomm`.`usermaster` SET `FIRSTNAME`=?, `LASTNAME`=?, `MOBILENO`=?, `EMAIL`=?,`IS_ACTIVE`=? WHERE `USER_ID`="
 							+ userAction.getUserId());
 			pstmt.setString(1, userAction.getFirstName());
 			pstmt.setString(2, userAction.getLastName());
 			pstmt.setString(3, userAction.getMobileNumber());
 			pstmt.setString(4, userAction.getEmailId());
+			pstmt.setString(5, userAction.getIsActive());
 			updateUser = pstmt.executeUpdate();
 			System.out.println("Out updateUser daoImpl");
 		} catch (Exception e) {

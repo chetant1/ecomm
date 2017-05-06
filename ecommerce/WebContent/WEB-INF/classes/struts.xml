@@ -21,8 +21,8 @@
 		</global-results>
 		<action name="registerUser" class="com.ecommerce.actions.UserAction"
 			method="registerUser">
-			<result name="success" type="redirect">/index.jsp</result>
-			<result name="fail" type="redirect">/?msg=error</result>
+			<result name="success">/login.jsp</result>
+			<result name="fail">/login.jsp</result>
 		</action>
 		<action name="logincheck" class="com.ecommerce.actions.UserAction"
 			method="checkLogin">
@@ -137,6 +137,10 @@
 			<result name="success">/checkout.jsp</result>
 			<result name="input">/?msg=error</result>
 		</action>
+		<action name="purchasedLogout" class="com.ecommerce.actions.UserProductActions"
+			method="purchasedLogout">
+			<result name="success">/login.jsp</result>
+		</action>
 		<action name="homePage" class="com.ecommerce.actions.UserAction"
 			method="getHomePage">
 			<interceptor-ref name="checkLogin"/>
@@ -166,6 +170,12 @@
 			method="addProductImage">
 			<interceptor-ref name="checkLogin"/>
 			<result name="success">/productList.jsp</result>
+			<result name="input">/?msg=error</result>
+		</action>
+		<action name="productorder" class="com.ecommerce.actions.UserAction"
+			method="getProductByOrder">
+			<interceptor-ref name="checkLogin"/>
+			<result name="success">/userproductlist.jsp</result>
 			<result name="input">/?msg=error</result>
 		</action>
 	</package>

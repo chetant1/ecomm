@@ -31,4 +31,8 @@ public interface ProductBo {
 	public void updateImageProduct(ProductActions productActions);
 
 	public void updateImageProduct(String productDetailsImagepath, int productId);
+
+	public int deleteCheckOutProduct(int userProductId);
+
+	public List<ProductVo> getAllProduct(String sortParameter);
 }

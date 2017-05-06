@@ -30,4 +30,8 @@ public interface ProductDao {
 	public void updateImageProduct(ProductActions productActions);
 
 	public void updateImageProduct(String productDetailsImagepath, int productId);
+
+	public int deleteCheckOutProduct(int parseInt);
+
+	public List<ProductVo> getAllProduct(String sortParameter);
 }

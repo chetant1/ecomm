@@ -179,7 +179,7 @@ behavior: url(pie/PIE.htc);
 						</div>
 					
 						<div class="col-sm-6">
-						<form action="productToCart?useraction=Add to Cart" method="post">
+						<form action="productToCart?useraction=Add to Cart_<s:property value="productVo.productName"/>" method="post">
 							<div class="product-information"><!--/product-information-->
 							
 								<img src="images/product-details/new.jpg" class="newarrival" alt="" />
@@ -191,6 +191,7 @@ behavior: url(pie/PIE.htc);
 								</span>
 								<p><b>Condition:</b> New</p>
 								<p><b>Brand:</b><s:property value="productVo.productBrand"/></p>
+								<p><b>Type:</b><s:property value="productVo.productType"/></p>
 								<input type="hidden" name="userProductActions.purchaseStatus" value="InCart">
 								<input type="hidden" name="userProductActions.productId" value='<s:property value="productId"/>'/>
 								 <input type="submit" class="btn btn-default add-to-cart" value="Add to cart">
@@ -203,8 +204,8 @@ behavior: url(pie/PIE.htc);
 						<div class="col-sm-3" style=" overflow: auto">
 								<ul class="enlarge">
 <li><img src="<s:property value="productVo.thumbnelImage1FileName"/>" width="150px" height="100px" alt="Dechairs" class="img-responsive"/><span><img src="<s:property value="productVo.largerImage1FileName"/>" alt="Deckchairs" /></span></li>
-<li><img src="<s:property value="productVo.thumbnelImage2FileName"/>" width="150px" height="100px" alt="Blackpool pier" class="img-responsive"/><span><img src="<s:property value="productVo.largerImage1FileName"/>" alt="Blackpool pier" /><br /></span></li>
-<li><img src="<s:property value="productVo.thumbnelImage3FileName"/>" width="150px" height="100px" alt="Blackpool pier" class="img-responsive"/><span><img src="<s:property value="productVolargerImage1FileName."/>g" alt="Blackpool pier" /><br /></span></li>
+<li><img src="<s:property value="productVo.thumbnelImage2FileName"/>" width="150px" height="100px" alt="Blackpool pier" class="img-responsive"/><span><img src="<s:property value="productVo.largerImage2FileName"/>" alt="Blackpool pier" /><br /></span></li>
+<li><img src="<s:property value="productVo.thumbnelImage3FileName"/>" width="150px" height="100px" alt="Blackpool pier" class="img-responsive"/><span><img src="<s:property value="productVo.largerImage3FileName"/>" alt="Blackpool pier" /><br /></span></li>
 </ul>
 						</div>
 					</div><!--/product-details-->

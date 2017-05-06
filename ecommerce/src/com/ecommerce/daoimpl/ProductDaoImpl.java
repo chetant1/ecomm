@@ -35,14 +35,16 @@ public class ProductDaoImpl implements ProductDao {
 				productVo.setProductId(resultSet.getInt("PRODUCT_ID"));
 				productVo.setProductName(resultSet.getString("PRODUCT_NAME"));
 				productVo.setProductBrand(resultSet.getString("PRODUCT_BRAND"));
-				productVo.setProductQuantity(resultSet
-						.getString("PRODUCT_QUANTITY"));
-				productVo.setProductPrice(resultSet.getString("PRODUCT_PRICE"));
+				productVo.setProductQuantity(""
+						+ resultSet.getInt("PRODUCT_QUANTITY"));
+				productVo.setProductPrice(""
+						+ resultSet.getInt("PRODUCT_PRICE"));
 				productVo.setIsActive(resultSet.getString("IS_ACTIVE"));
 				productVo.setProductDetails(resultSet
 						.getString("PRODUCT_DETAILS"));
 				productVo.setProductDetailsmainImageFileName(resultSet
 						.getString("PRODUCTDETAILSIMAGE_PATH"));
+				productVo.setProductType(resultSet.getString("PRODUCT_TYPE"));
 				productList.add(productVo);
 			}
 
@@ -58,15 +60,16 @@ public class ProductDaoImpl implements ProductDao {
 		int productAdd = 0;
 		connection = DatabaseConnection.getConnection();
 		String sqlQuery = "INSERT INTO `ecomm`.`product_master` (`PRODUCT_NAME`, `PRODUCT_BRAND`, `PRODUCT_QUANTITY`, `PRODUCT_PRICE`,"
-				+ "`IS_ACTIVE`, `PRODUCT_DETAILS`) VALUES (?,?,?,?,?,?)";
+				+ "`IS_ACTIVE`, `PRODUCT_DETAILS`, `PRODUCT_TYPE`) VALUES (?,?,?,?,?,?,?)";
 		try {
 			pstmt = connection.prepareStatement(sqlQuery);
 			pstmt.setString(1, productData.getProductName());
 			pstmt.setString(2, productData.getProductBrand());
-			pstmt.setString(3, productData.getProductQuantity());
+			pstmt.setInt(3, Integer.parseInt(productData.getProductQuantity()));
 			pstmt.setString(4, productData.getProductPrice());
 			pstmt.setString(5, "Y");
 			pstmt.setString(6, productData.getProductDetails());
+			pstmt.setString(7, productData.getProductType());
 			productAdd = pstmt.executeUpdate();
 			System.out.println("productAdd Successfull" + productAdd);
 		} catch (SQLException e) {
@@ -101,7 +104,7 @@ public class ProductDaoImpl implements ProductDao {
 		connection = DatabaseConnection.getConnection();
 		try {
 			pstmt = connection
-					.prepareStatement("SELECT * FROM `ecomm`.`product_master` where IS_ACTIVE='Y' and product_id="
+					.prepareStatement("SELECT * FROM `ecomm`.`product_master` where product_id="
 							+ productId);
 			resultSet = pstmt.executeQuery();
 			while (resultSet.next()) {
@@ -109,9 +112,11 @@ public class ProductDaoImpl implements ProductDao {
 				productVo.setProductId(resultSet.getInt("PRODUCT_ID"));
 				productVo.setProductName(resultSet.getString("PRODUCT_NAME"));
 				productVo.setProductBrand(resultSet.getString("PRODUCT_BRAND"));
-				productVo.setProductQuantity(resultSet
-						.getString("PRODUCT_QUANTITY"));
-				productVo.setProductPrice(resultSet.getString("PRODUCT_PRICE"));
+				productVo.setProductQuantity(""
+						+ resultSet.getInt("PRODUCT_QUANTITY"));
+				productVo.setProductType(resultSet.getString("PRODUCT_TYPE"));
+				productVo.setProductPrice(""
+						+ resultSet.getInt("PRODUCT_PRICE"));
 				productVo.setIsActive(resultSet.getString("IS_ACTIVE"));
 				productVo.setProductDetails(resultSet
 						.getString("PRODUCT_DETAILS"));
@@ -147,13 +152,14 @@ public class ProductDaoImpl implements ProductDao {
 			connection = DatabaseConnection.getConnection();
 			pstmt = connection
 					.prepareStatement("UPDATE `ecomm`.`product_master` SET `PRODUCT_NAME`=?, `PRODUCT_BRAND`=?,"
-							+ " `PRODUCT_QUANTITY`=?, `PRODUCT_PRICE`=?,`PRODUCT_DETAILS`=? WHERE `PRODUCT_ID`="
+							+ " `PRODUCT_QUANTITY`=?, `PRODUCT_PRICE`=?,`PRODUCT_DETAILS`=?,`PRODUCT_TYPE`=? WHERE `PRODUCT_ID`="
 							+ productData.getProductId());
 			pstmt.setString(1, productData.getProductName());
 			pstmt.setString(2, productData.getProductBrand());
-			pstmt.setString(3, productData.getProductQuantity());
-			pstmt.setString(4, productData.getProductPrice());
+			pstmt.setInt(3, Integer.parseInt(productData.getProductQuantity()));
+			pstmt.setInt(4, Integer.parseInt(productData.getProductPrice()));
 			pstmt.setString(5, productData.getProductDetails());
+			pstmt.setString(6, productData.getProductType());
 			productUpdate = pstmt.executeUpdate();
 			System.out.println("Out updateProduct daoImpl");
 		} catch (Exception e) {
@@ -238,7 +244,7 @@ public class ProductDaoImpl implements ProductDao {
 			System.out.println("in deleteCartProduct daoImpl");
 			connection = DatabaseConnection.getConnection();
 			pstmt = connection
-					.prepareStatement("UPDATE `ecomm`.`userproductdetails` SET `IS_ACTIVE`='N' WHERE `USER_PRODUCT_ID`="
+					.prepareStatement("UPDATE `ecomm`.`userproductdetails` SET `IS_ACTIVE`='N',`PURCHASE_STATUS`='DELETED' WHERE `USER_PRODUCT_ID`="
 							+ cartProductID);
 			productUpdate = pstmt.executeUpdate();
 			System.out.println("Out deleteCartProduct daoImpl");
@@ -256,7 +262,9 @@ public class ProductDaoImpl implements ProductDao {
 		connection = DatabaseConnection.getConnection();
 		try {
 			pstmt = connection
-					.prepareStatement("SELECT * FROM `ecomm`.`user_activity`");
+					.prepareStatement("SELECT ua.USER_TRACK_ID,ua.USER_ID,ua.USER_ACTION,ua.ACTIVITY_DATE,ua.START_TIME,ua.END_TIME,ua.TIME_SPEND,um.username as USERNAME FROM"
+							+ " ecomm.user_activity as ua,ecomm.usermaster as um "
+							+ "where ua.USER_ID=um.USER_ID;");
 			resultSet = pstmt.executeQuery();
 			while (resultSet.next()) {
 				userActiviti = new UserActivityVo();
@@ -270,6 +278,7 @@ public class ProductDaoImpl implements ProductDao {
 				userActiviti
 						.setActivityEndTime(resultSet.getString("END_TIME"));
 				userActiviti.setTimeSpend(resultSet.getString("TIME_SPEND"));
+				userActiviti.setUsername(resultSet.getString("USERNAME"));
 				userActivitiList.add(userActiviti);
 			}
 
@@ -323,4 +332,67 @@ public class ProductDaoImpl implements ProductDao {
 		}
 	}
 
+	@Override
+	public int deleteCheckOutProduct(int userProductId) {
+		int productUpdate = 0;
+		try {
+			System.out.println("in deleteCartProduct daoImpl");
+			connection = DatabaseConnection.getConnection();
+			pstmt = connection
+					.prepareStatement("UPDATE `ecomm`.`userproductdetails` SET `PURCHASE_STATUS`='PURCHESED' WHERE `USER_ID`="
+							+ userProductId);
+			productUpdate = pstmt.executeUpdate();
+			System.out.println("Out deleteCartProduct daoImpl");
+		} catch (Exception e) {
+			System.out.println("Failed to update status" + e);
+			e.printStackTrace();
+		}
+		return productUpdate;
+	}
+
+	@Override
+	public List<ProductVo> getAllProduct(String sortParameter) {
+		List<ProductVo> productList = new ArrayList<ProductVo>();
+		ProductVo productVo = null;
+		String sortquery = null;
+		connection = DatabaseConnection.getConnection();
+		if (sortParameter.equals("productbyname")) {
+			sortquery = "SELECT * FROM `ecomm`.`product_master` where IS_ACTIVE='Y' order by PRODUCT_NAME asc";
+		}
+		if (sortParameter.equals("productbylowtohighprice")) {
+			sortquery = "SELECT * FROM `ecomm`.`product_master` where IS_ACTIVE='Y' order by PRODUCT_PRICE ASC";
+		}
+		if (sortParameter.equals("productbyhightolowprice")) {
+			sortquery = "SELECT * FROM `ecomm`.`product_master` where IS_ACTIVE='Y' order by PRODUCT_PRICE desc";
+		}
+		if (sortParameter.equals("productbytype")) {
+			sortquery = "SELECT * FROM `ecomm`.`product_master` where IS_ACTIVE='Y' order by PRODUCT_TYPE asc";
+		}
+		try {
+			pstmt = connection.prepareStatement(sortquery);
+			resultSet = pstmt.executeQuery();
+			while (resultSet.next()) {
+				productVo = new ProductVo();
+				productVo.setProductId(resultSet.getInt("PRODUCT_ID"));
+				productVo.setProductName(resultSet.getString("PRODUCT_NAME"));
+				productVo.setProductBrand(resultSet.getString("PRODUCT_BRAND"));
+				productVo.setProductQuantity(""
+						+ resultSet.getInt("PRODUCT_QUANTITY"));
+				productVo.setProductPrice(""
+						+ resultSet.getInt("PRODUCT_PRICE"));
+				productVo.setIsActive(resultSet.getString("IS_ACTIVE"));
+				productVo.setProductDetails(resultSet
+						.getString("PRODUCT_DETAILS"));
+				productVo.setProductDetailsmainImageFileName(resultSet
+						.getString("PRODUCTDETAILSIMAGE_PATH"));
+				productVo.setProductType(resultSet.getString("PRODUCT_TYPE"));
+				productList.add(productVo);
+			}
+
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+		return productList;
+
+	}
 }

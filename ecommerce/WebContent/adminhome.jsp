@@ -31,7 +31,7 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="index.jsp"><img src="images/home/logo.png" alt="" /></a>
+							<a href="adminhome.jsp"><img src="images/home/logo.png" alt="" /></a>
 						</div>
 						
 					</div>
@@ -82,12 +82,12 @@
 						<a href="getUserActivity" style="font-size:20px">Click to View UserActivity</a>
 					</div>
 				</div>
-				<div class="col-sm-3">
+				<!-- <div class="col-sm-3">
 					<div class="signup-form">
 						
 						<a href="manageImages" style="font-size:20px">Manage Product Images</a>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</section><!--/form-->

@@ -8,6 +8,7 @@ public class UserActivityVo {
 	private String activityStartTime;
 	private String activityEndTime;
 	private String timeSpend;
+	private String username;
 
 	/**
 	 * @return the userTrackId
@@ -107,10 +108,26 @@ public class UserActivityVo {
 	}
 
 	/**
-	 * @param timeSpend the timeSpend to set
+	 * @param timeSpend
+	 *            the timeSpend to set
 	 */
 	public void setTimeSpend(String timeSpend) {
 		this.timeSpend = timeSpend;
+	}
+
+	/**
+	 * @return the username
+	 */
+	public String getUsername() {
+		return username;
+	}
+
+	/**
+	 * @param username
+	 *            the username to set
+	 */
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 }

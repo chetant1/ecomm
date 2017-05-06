@@ -253,8 +253,12 @@ public class UserAction extends ActionSupport implements SessionAware {
 		UserBO userBO = new UserBoImpl();
 		int result = userBO.registeruser(userAction);
 		if (result == 1) {
+			request.setAttribute("msg",
+					"Registration successful contact to admin");
 			return "success";
 		} else {
+			request.setAttribute("msg", userAction.getUsername()
+					+ " Username already in used");
 			return "fail";
 		}
 	}
@@ -335,6 +339,14 @@ public class UserAction extends ActionSupport implements SessionAware {
 	public String getUserProductList() {
 		ProductBo productBo = new ProductBoImpl();
 		userProductList = productBo.getAllProduct();
+		productActions.setProductList(userProductList);
+		return "success";
+	}
+
+	public String getProductByOrder() {
+		ProductBo productBo = new ProductBoImpl();
+		userProductList = productBo.getAllProduct(request
+				.getParameter("sortby"));
 		productActions.setProductList(userProductList);
 		return "success";
 	}

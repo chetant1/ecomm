@@ -28,6 +28,7 @@ public class ProductActions extends ActionSupport {
 	private String productBrand;
 	private String productQuantity;
 	private String productPrice;
+	private String productType;
 	private ProductActions productActions;
 	private String isActive;
 	private List<ProductVo> productList = null;
@@ -594,5 +595,20 @@ public class ProductActions extends ActionSupport {
 	 */
 	public void setThumbnelImage1FileName(String thumbnelImage1FileName) {
 		this.thumbnelImage1FileName = thumbnelImage1FileName;
+	}
+
+	/**
+	 * @return the productType
+	 */
+	public String getProductType() {
+		return productType;
+	}
+
+	/**
+	 * @param productType
+	 *            the productType to set
+	 */
+	public void setProductType(String productType) {
+		this.productType = productType;
 	}
 }

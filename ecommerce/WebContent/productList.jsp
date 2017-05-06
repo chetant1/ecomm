@@ -105,6 +105,10 @@ if(productId==null||productId==''||productId==0){
 									name="productActions.productBrand" id="productBrand"/>
 							</div>
 							<div class="col-sm-4">
+								<input type="text" placeholder="Product Type"
+									name="productActions.productType" id="productType"/>
+							</div>
+							<div class="col-sm-4">
 								<input type="text" placeholder="Product Quantity"
 									name="productActions.productQuantity" id="productQuantity"/>
 							</div>
@@ -206,6 +210,10 @@ if(productId==null||productId==''||productId==0){
 									<input type="text" placeholder="Product Brannd"
 										name="productActions.productBrand"
 										value='<s:property value="productVo.productBrand"/>' id="uproductBrand"/>
+								</div>
+									<div class="col-sm-3">
+									<input type="text" placeholder="Product Type"
+									name="productActions.productType" id="uproductType" value='<s:property value="productVo.productType"/>'/>
 								</div>
 
 								<div class="col-sm-3">
@@ -332,6 +340,11 @@ if(productId==null||productId==''||productId==0){
 	    		    required: true,
 	    		    messages: { required: 'Product Brand is required.' }
 	    		});
+	    $('#productType').rules("add",
+	    		{
+	    		    required: true,
+	    		    messages: { required: 'Product Type is required.' }
+	    		});
 	    $('#productQuantity').rules("add",
 	    		{
 	    		    required: true,
@@ -377,6 +390,11 @@ if(productId==null||productId==''||productId==0){
 	    		{
 	    		    required: true,
 	    		    messages: { required: 'Product Brand is required.' }
+	    		});
+	    $('#uproductType').rules("add",
+	    		{
+	    		    required: true,
+	    		    messages: { required: 'Product Type is required.' }
 	    		});
 	    $('#uproductQuantity').rules("add",
 	    		{

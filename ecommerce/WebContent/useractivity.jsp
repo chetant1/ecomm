@@ -64,7 +64,8 @@
 			</div>
 		</div><!--/header-bottom-->
 	</header><!--/header-->
-	
+	<button>Export</button>
+
 	<section id="form" style="margin-top: 0"><!--form-->
 		<div class="container">
 			<div class="row">
@@ -86,6 +87,7 @@
                                             <th>Activity Start Time</th>
                                             <th>Activity End Time</th>
                                             <th>Time Spend</th>
+                                            <th>Activity By</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -96,6 +98,7 @@
                                             <td><s:property value="activityStartTime"/></td>
                                             <td><s:property value="activityEndTime"/></td>
                                             <td><s:property value="timeSpend"/></td>
+                                            <td><s:property value="username"/></td>
                                         </tr>
                                         </s:iterator>
                                     </tbody>
@@ -181,11 +184,19 @@
      <!-- Page-Level Plugin Scripts - Tables -->
     <script src="js/dataTables/jquery.dataTables.js"></script>
     <script src="js/dataTables/dataTables.bootstrap.js"></script>
+    <script src="js/exporttable/jquery.table2excel.js"></script>
      <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
     $(document).ready(function() {
         $('#dataTables-example').dataTable();
     });
+    $("button").click(function(){
+    	  $("#dataTables-example").table2excel({
+    	    // exclude CSS class
+    	    name: "Worksheet Name",
+    	    filename: "SomeFile" //do not include extension
+    	  }); 
+    	});
     </script>
     
 </body>
