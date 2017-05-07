@@ -38,7 +38,7 @@
 							<a href="homePage?useraction=Home"><img src="images/home/logo.png" alt="" /></a>
 						</div>
 						
-					</div>
+					</div> 
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
