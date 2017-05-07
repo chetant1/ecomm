@@ -10,6 +10,7 @@ public class UserProductVo {
 	private String purchaseStatus;
 	private String isActive;
 	private String productDetails;
+	private String productDetailsImagepath;
 
 	/**
 	 * @return the userProductID
@@ -144,6 +145,21 @@ public class UserProductVo {
 	 */
 	public void setProductDetails(String productDetails) {
 		this.productDetails = productDetails;
+	}
+
+	/**
+	 * @return the productDetailsImagepath
+	 */
+	public String getProductDetailsImagepath() {
+		return productDetailsImagepath;
+	}
+
+	/**
+	 * @param productDetailsImagepath
+	 *            the productDetailsImagepath to set
+	 */
+	public void setProductDetailsImagepath(String productDetailsImagepath) {
+		this.productDetailsImagepath = productDetailsImagepath;
 	}
 
 }

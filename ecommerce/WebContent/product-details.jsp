@@ -187,7 +187,7 @@ behavior: url(pie/PIE.htc);
 								<span>
 									<span>US $<input type="text" name="userProductActions.productPrice" value='<s:property value="productVo.productPrice"/>'/></span>
 									<label>In Stock:<s:property value="productVo.productQuantity"/></label>
-									<label>Quantity:<input name="userProductActions.userProductQuantity" type="text" value="3" /></label>
+									<label>Quantity:<input name="userProductActions.userProductQuantity" type="text" value="1" /></label>
 								</span>
 								<p><b>Condition:</b> New</p>
 								<p><b>Brand:</b><s:property value="productVo.productBrand"/></p>

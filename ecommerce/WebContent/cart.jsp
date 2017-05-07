@@ -99,32 +99,32 @@
 							<td class="description">Name</td>
 							<td class="price">Price</td>
 							<td class="quantity">Quantity</td>
-							<td class="total">Total</td>
+							<!-- <td class="total">Total</td> -->
 							<td></td>
 						</tr>
 					</thead>
 					<tbody>
 					<s:iterator value="cartproductList">
 						<tr>
-							<td class="cart_product">
-								<img src="images/cart/one.png" alt="">
+							<td >
+								<img src="<s:property value="productDetailsImagepath"/>" alt="">
 							</td>
-							<td class="cart_description">
+							<td >
 								<h4><s:property value="productName"/></h4>
 							</td>
-							<td class="cart_price">
+							<td >
 								<p>$<s:property value="productPrice"/></p>
 							</td>
-							<td class="cart_quantity">
+							<td >
 								<div class="cart_quantity_button">
 									<input class="cart_quantity_input" readonly="readonly" type="text" name="quantity" value='<s:property value="userProductQuantity"/>' autocomplete="off" size="2">
 								</div>
 							</td>
-							<td class="cart_total">
+							<!-- <td class="cart_total">
 								<p class="cart_total_price">$59</p>
-							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href="deleteCartProduct?useraction=Delete cart product&userProductId=<s:property value="userProductID"/>"><i class="fa fa-times"></i></a>
+							</td> -->
+							<td >
+								<a class="btn btn-default check_out" href="deleteCartProduct?useraction=Delete cart product&userProductId=<s:property value="userProductID"/>"><i class="fa fa-times"></i></a>
 							</td>
 						</tr>
 					</s:iterator>

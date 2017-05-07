@@ -38,7 +38,7 @@ public class ProductDaoImpl implements ProductDao {
 				productVo.setProductQuantity(""
 						+ resultSet.getInt("PRODUCT_QUANTITY"));
 				productVo.setProductPrice(""
-						+ resultSet.getInt("PRODUCT_PRICE"));
+						+ resultSet.getDouble("PRODUCT_PRICE"));
 				productVo.setIsActive(resultSet.getString("IS_ACTIVE"));
 				productVo.setProductDetails(resultSet
 						.getString("PRODUCT_DETAILS"));
@@ -65,7 +65,8 @@ public class ProductDaoImpl implements ProductDao {
 			pstmt = connection.prepareStatement(sqlQuery);
 			pstmt.setString(1, productData.getProductName());
 			pstmt.setString(2, productData.getProductBrand());
-			pstmt.setInt(3, Integer.parseInt(productData.getProductQuantity()));
+			pstmt.setDouble(3,
+					Double.parseDouble(productData.getProductQuantity()));
 			pstmt.setString(4, productData.getProductPrice());
 			pstmt.setString(5, "Y");
 			pstmt.setString(6, productData.getProductDetails());
@@ -116,7 +117,7 @@ public class ProductDaoImpl implements ProductDao {
 						+ resultSet.getInt("PRODUCT_QUANTITY"));
 				productVo.setProductType(resultSet.getString("PRODUCT_TYPE"));
 				productVo.setProductPrice(""
-						+ resultSet.getInt("PRODUCT_PRICE"));
+						+ resultSet.getDouble("PRODUCT_PRICE"));
 				productVo.setIsActive(resultSet.getString("IS_ACTIVE"));
 				productVo.setProductDetails(resultSet
 						.getString("PRODUCT_DETAILS"));
@@ -157,7 +158,8 @@ public class ProductDaoImpl implements ProductDao {
 			pstmt.setString(1, productData.getProductName());
 			pstmt.setString(2, productData.getProductBrand());
 			pstmt.setInt(3, Integer.parseInt(productData.getProductQuantity()));
-			pstmt.setInt(4, Integer.parseInt(productData.getProductPrice()));
+			pstmt.setDouble(4,
+					Double.parseDouble(productData.getProductPrice()));
 			pstmt.setString(5, productData.getProductDetails());
 			pstmt.setString(6, productData.getProductType());
 			productUpdate = pstmt.executeUpdate();
@@ -203,7 +205,7 @@ public class ProductDaoImpl implements ProductDao {
 		try {
 			pstmt = connection
 					.prepareStatement("select u.USER_PRODUCT_ID,u.USER_ID,u.PRODUCT_ID,u.USER_PRODUCT_QUANTITY,u.PRODUCT_PRICE,"
-							+ "u.PURCHASE_STATUS,u.IS_ACTIVE,p.PRODUCT_NAME,p.PRODUCT_DETAILS from"
+							+ "u.PURCHASE_STATUS,u.IS_ACTIVE,p.PRODUCT_NAME,p.PRODUCT_DETAILS,p.PRODUCTDETAILSIMAGE_PATH from"
 							+ " ecomm.userproductdetails as u,ecomm.product_master as p where"
 							+ " p.PRODUCT_ID=u.PRODUCT_ID and u.IS_ACTIVE='Y' and u.PURCHASE_STATUS='InCart' and u.user_id="
 							+ userId);
@@ -227,6 +229,8 @@ public class ProductDaoImpl implements ProductDao {
 						.getString("PRODUCT_NAME"));
 				userProductVo.setProductDetails(resultSet
 						.getString("PRODUCT_DETAILS"));
+				userProductVo.setProductDetailsImagepath(resultSet
+						.getString("PRODUCTDETAILSIMAGE_PATH"));
 				productList.add(userProductVo);
 			}
 
@@ -379,7 +383,7 @@ public class ProductDaoImpl implements ProductDao {
 				productVo.setProductQuantity(""
 						+ resultSet.getInt("PRODUCT_QUANTITY"));
 				productVo.setProductPrice(""
-						+ resultSet.getInt("PRODUCT_PRICE"));
+						+ resultSet.getDouble("PRODUCT_PRICE"));
 				productVo.setIsActive(resultSet.getString("IS_ACTIVE"));
 				productVo.setProductDetails(resultSet
 						.getString("PRODUCT_DETAILS"));
