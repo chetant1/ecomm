@@ -83,8 +83,8 @@
 						<h2>Login to your account</h2>
 						<form action="logincheck" method="post" name="login-form"
 							id="login-form">
-							<input type="text" placeholder="First Name"
-								name="userAction.firstName" id="loginfirstName" /> <input
+							<input type="text" placeholder="Username"
+								name="userAction.username" id="loginusername" /> <input
 								type="password" placeholder="Password"
 								name="userAction.password" id="loginpassword" />
 							<button type="submit" class="btn btn-default">Login</button>
@@ -236,11 +236,14 @@ $(function() {
             form.submit();
         }
     });
-	 $('#loginfirstName').rules("add",
-	    		{
-	    		    required: true,
-	    		    messages: { required: 'First name is required.' }
-	    		});
+	 $('#loginusername').rules("add",
+			 {
+		    required: true,
+		    number: true,
+		    minlength:9,
+		    maxlength:9,
+		    messages: { required: 'Please enter username',number:'Number only',minlength:'9 digit username',maxlength:'9 digit username'}
+		});	
 	 $('#loginpassword').rules("add",
 	    		{
 	    		    required: true,

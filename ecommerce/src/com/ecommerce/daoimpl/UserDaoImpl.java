@@ -107,10 +107,10 @@ public class UserDaoImpl implements UserDao {
 		UserVo userVo = null;
 		connection = DatabaseConnection.getConnection();
 
-		String sqlQuery = "select * from ecomm.usermaster where firstname=? and password=? and IS_ACTIVE='Y'";
+		String sqlQuery = "select * from ecomm.usermaster where username=? and password=? and IS_ACTIVE='Y'";
 		try {
 			pstmt = connection.prepareStatement(sqlQuery);
-			pstmt.setString(1, userAction.getFirstName());
+			pstmt.setString(1, userAction.getUsername());
 			pstmt.setString(2, userAction.getPassword());
 			resultSet = pstmt.executeQuery();
 			if (resultSet.next()) {
